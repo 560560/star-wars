@@ -1,12 +1,14 @@
 import {planetsApi} from "../api/api";
 
 const SET_PLANET_LIST = "SET-PLANET-LIST"
+const SET_PLANET_DESCRIPTION = "SET-PLANET-DESCRIPTION"
 
 let initialState = {
-    planets: [],
+    planets: null,
     nextPage: "",
     prevPage:"",
-    pageCount: ""
+    pageCount: "",
+    planet: null
 }
 
 const planetsReducer = (state = initialState, action) => {
@@ -18,6 +20,11 @@ const planetsReducer = (state = initialState, action) => {
                 nextPage: action.nextPage,
                 prevPage: action.prevPage,
                 pageCount: action.pageCount
+            }
+        case SET_PLANET_DESCRIPTION:
+            return {
+                ...state,
+                planet: action.data
             }
         default:
             return state
@@ -33,10 +40,20 @@ const setPlanetsList = (data) => {
 }
 
 
+const setPlanetDescription = (data) => {
+    return {type: SET_PLANET_DESCRIPTION, data}
+}
+
 /* THUNK CREATORS  */
 export const getPlanetsList = (pageUrl = "http://swapi.dev/api/planets/?page=1") => async (dispatch) => {
     let response = await planetsApi.getPlanets(pageUrl)
     dispatch(setPlanetsList(response.data))
+}
+
+export const getPlanetDescription = (planetId) => async (dispatch) => {
+
+    let response = await planetsApi.getPlanetDescription(planetId)
+    dispatch(setPlanetDescription(response.data))
 }
 
 

@@ -2,19 +2,18 @@
 
 
 @font-face {
-  font-family: 'StarWars';
+  font-family: 'Starjedi';
   font-style: normal;
-  font-weight: 700;
-  src: local('Lato Bold'), local('Lato-Bold'),
-  url('../assets/fonts/Starjedi.ttf') format('truetype');
+  font-weight: normal;
+  src: url('../assets/fonts/Starjedi.ttf') format('truetype');
 }
 
 .appWrapper {
-  background: url("https://starwars.reactlearning.ru/img/bg.jpg"), rgba(255, 255, 255, 0.6);
-  background-blend-mode: color;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 
+}
+
+h1 {
+  font-family: "Starjedi";
 }
 
 .planetCard {
@@ -42,9 +41,13 @@
 
 }
 
+.card-title {
+  font-family: "Starjedi";
+}
+
 
 .descriptionButton {
-  color: #fff;
+  color: white;
   background-color: #17a2b8;
   border-color: #17a2b8;
   display: inline-block;
@@ -62,6 +65,14 @@
     background-color: #138496;
     color: white;
   }
+}
+
+.planetsListWrapper {
+  background: url("https://starwars.reactlearning.ru/img/bg.jpg"), rgba(255, 255, 255, 0.6);
+  background-blend-mode: color;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
 }
 
 @media (min-width: 768px) and (max-width: 1359px) {
