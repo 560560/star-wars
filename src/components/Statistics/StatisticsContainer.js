@@ -4,7 +4,7 @@ class StatisticsContainer extends Component {
     render() {
         return (
             <div>
-
+                Statistics Container
             </div>
         );
     }
