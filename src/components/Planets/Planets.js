@@ -9,7 +9,7 @@ const Planets = ({images, planets}) => {
         return (
             <div className="planetsListWrapper">
             <Container>
-                <h1 className="text-center mt-5 mb-5">Planets of the Star wars universe</h1>
+                <h1 className="text-center pt-5 mb-5">Planets of the Star wars universe</h1>
                 <Row className="justify-content-center">
                     {planets.map((planet, i) => <PlanetListItem key={i} images={images} planet={planet}/>)}
                 </Row>

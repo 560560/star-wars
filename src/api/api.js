@@ -12,5 +12,11 @@ export const planetsApi = {
     },
     getPlanetDescription(planetId) {
         return instance.get(`planets/${planetId}`)
+    },
+    getFilmData(filmUrl) {
+        return instance.get(`${filmUrl}`)
+    },
+    getResidentData(residentUrl) {
+        return instance.get(`${residentUrl}`)
     }
 }

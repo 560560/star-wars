@@ -8,6 +8,13 @@
   src: url('../assets/fonts/Starjedi.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'AurebeshDroid';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/AurebeshDroid.ttf') format('truetype');
+}
+
 .appWrapper {
 
 }
@@ -15,6 +22,38 @@
 h1 {
   font-family: "Starjedi";
 }
+
+h2 {
+  font-family: "AurebeshDroid";
+}
+
+h5 {
+  margin-right: 25px;
+}
+
+a {
+  color: black;
+
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.link {
+  padding: 2px 0px;
+
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  transition: 0.8s;
+
+  &:hover {
+    transition: 0.8s;
+    border-top: 2px solid rgba(23, 162, 184, 0.6);
+    border-bottom: 2px solid rgba(23, 162, 184, 0.6);
+  }
+}
+
 
 .planetCard {
   border: 3px solid rgba(255, 255, 255, 0.0);
@@ -67,15 +106,21 @@ h1 {
   }
 }
 
-.planetsListWrapper {
-  background: url("https://starwars.reactlearning.ru/img/bg.jpg"), rgba(255, 255, 255, 0.6);
+.planetsListWrapper, .planetItemWrapper {
+  background: url("https://starwars.reactlearning.ru/img/bg.jpg") no-repeat center center fixed, rgba(255, 255, 255, 0.6);
   background-blend-mode: color;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  -moz-background-size: 100%; /* Firefox 3.6+ */
+  -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+  -o-background-size: 100%; /* Opera 9.6+ */
+  background-size: 100%; /* Современные браузеры */
 
 }
 
 @media (min-width: 768px) and (max-width: 1359px) {
+
+  .planetsListWrapper {
+    background: none;
+  }
 
   .planetCard {
     background-color: #F8F9FA;
@@ -84,4 +129,19 @@ h1 {
       border: none;
     }
   }
+}
+
+@media (max-width: 767px) {
+  .planetsListWrapper {
+    background: none;
+  }
+  .planetCard {
+    width: 70%;
+    background-color: #F8F9FA;
+
+    &:hover {
+      border: none;
+    }
+  }
+
 }

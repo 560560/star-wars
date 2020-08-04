@@ -9,7 +9,7 @@ const PlanetListItem = ({images, planet}) => {
         <Card className="col-lg-3 planetCard text-center m-3 p-0">
             <Card.Img variant="top" src={planetImgSrc} className="mx-auto mt-3 mb-2"/>
             <Card.Body>
-                <Card.Title className="mb-4">{planet.name}</Card.Title>
+                <Card.Title className="mb-4">{planet.name.toLowerCase()}</Card.Title>
                 <NavLink to={"/planet/" + planetId} className="descriptionButton mb-2">Description</NavLink>
             </Card.Body>
         </Card>
