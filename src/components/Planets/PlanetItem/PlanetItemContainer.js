@@ -34,7 +34,8 @@ const mapStateToProps = (state) => ({
     planet: state.planetsPage.planet,
     isFetching: state.planetsPage.isFetching,
     filmsDescription: state.planetsPage.selectedPlanetFilmsDescription,
-    residentsDescription: state.planetsPage.selectedPlanetResidentsDescription
+    residentsDescription: state.planetsPage.selectedPlanetResidentsDescription,
+    parentPage: state.planetsPage.currentPage
 })
 
 export default compose (

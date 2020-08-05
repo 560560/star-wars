@@ -17,7 +17,8 @@ let initialState = {
     planet: null,
     selectedPlanetFilmsDescription: [],
     isFetching: false,
-    selectedPlanetResidentsDescription: []
+    selectedPlanetResidentsDescription: [],
+    currentPage: null
 
 }
 
@@ -29,7 +30,9 @@ const planetsReducer = (state = initialState, action) => {
                 planets: action.planets,
                 nextPage: action.nextPage,
                 prevPage: action.prevPage,
-                pageCount: action.pageCount
+                pageCount: action.pageCount,
+                currentPage: action.pageNumber,
+                isFetching: false
 
             }
         case SET_PLANET_DESCRIPTION:
@@ -71,8 +74,8 @@ const planetsReducer = (state = initialState, action) => {
 
 
 /* ACTION CREATORS  */
-const setPlanetsList = (data) => {
-    return {type: SET_PLANET_LIST, planets: data.results, nextPage: data.next, prevPage: data.previous, pageCount: data.count}
+const setPlanetsList = (data, pageNumber) => {
+    return {type: SET_PLANET_LIST, planets: data.results, nextPage: data.next, prevPage: data.previous, pageCount: data.count, pageNumber}
 
 }
 
@@ -106,9 +109,10 @@ export const setIsFetching = (state) => {
 
 /* THUNK CREATORS  */
 
-export const getPlanetsList = (pageUrl = "http://swapi.dev/api/planets/?page=1") => async (dispatch) => {
-    let response = await planetsApi.getPlanets(pageUrl)
-    dispatch(setPlanetsList(response.data))
+export const getPlanetsList = (pageNumber) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    let response = await planetsApi.getPlanets(pageNumber)
+    dispatch(setPlanetsList(response.data, pageNumber))
 }
 
 

@@ -7,8 +7,8 @@ let instance = axios.create({
 
 
 export const planetsApi = {
-    getPlanets(pageUrl) {
-        return instance.get(pageUrl)
+    getPlanets(pageNumber) {
+        return instance.get(`planets/?page=${pageNumber}`)
     },
     getPlanetDescription(planetId) {
         return instance.get(`planets/${planetId}`)
@@ -18,5 +18,11 @@ export const planetsApi = {
     },
     getResidentData(residentUrl) {
         return instance.get(`${residentUrl}`)
+    }
+}
+
+export const statisticsApi = {
+    getSections () {
+        return instance.get("https://swapi.dev/api/")
     }
 }

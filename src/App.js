@@ -23,7 +23,7 @@ function App(props) {
             <Header/>
             <Switch>
                 <Route exact path="/" component={HomeContainer}/>
-                <Route exact path="/planets" component={PlanetsContainer}/>
+                <Route path="/planets/:planetsId?" component={PlanetsContainer}/>
                 <Route exact path="/films" component={FilmsContainer}/>
                 <Route exact path="/people" component={ResidentsContainer}/>
                 <Route exact path="/species" component={SpeciesContainer}/>

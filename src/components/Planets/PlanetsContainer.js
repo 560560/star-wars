@@ -6,12 +6,19 @@ import {getPlanetsList} from "../../redux/planets-reducer";
 class PlanetsContainer extends Component {
     componentDidMount() {
 
-        this.props.getPlanetsList()
+        this.props.getPlanetsList(this.props.match.params.planetsId)
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.match.params.planetsId !== this.props.match.params.planetsId) {
+            this.props.getPlanetsList(this.props.match.params.planetsId)
+        }
+    }
+
 
     render() {
         return (
-            <Planets {...this.props}/>
+            <Planets {...this.props} currentPage = {this.props.match.params.planetsId}/>
         );
     }
 }
@@ -19,7 +26,11 @@ class PlanetsContainer extends Component {
 const mapStateToProps = (state) => (
     {
         images: state.imagesStore.planets,
-        planets: state.planetsPage.planets
+        planets: state.planetsPage.planets,
+        prevPage: state.planetsPage.prevPage,
+        nextPage: state.planetsPage.nextPage,
+        isFetching: state.planetsPage.isFetching
+
     }
 )
 
