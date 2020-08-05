@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import Preloader from "../../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 
@@ -79,7 +79,7 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                         </Col>
                     </Row>
 
-                    <Button variant="info" className="mb-3 w-100">Back to planet list</Button>
+                    <NavLink to={"/planets"} className="backToPlanetsButton mb-3 w-100">Back to planet list</NavLink>
                 </Container>
             </div>
         );

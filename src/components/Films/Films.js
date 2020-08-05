@@ -2,7 +2,7 @@ import React from 'react';
 
 const Films = ({film}) => {
     return (
-        <div>1</div>
+        <div>Films</div>
     );
 }
 

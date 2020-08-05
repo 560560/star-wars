@@ -62,6 +62,14 @@ let initialState = {
         {name: "Vulpter", imgSrc: `${basicPath}planets/vulpter.png`},
         {name: "Yavin IV", imgSrc: `${basicPath}planets/yavin4.png`},
         {name: "Zolan", imgSrc: `${basicPath}planets/zolan.png`},
+    ],
+    sections: [
+        {name: "people", imgSrc: `${basicPath}sections/people.png`},
+        {name: "planets", imgSrc: `${basicPath}sections/planets.png`},
+        {name: "films", imgSrc: `${basicPath}sections/films.png`},
+        {name: "species", imgSrc: `${basicPath}sections/species.png`},
+        {name: "vehicles", imgSrc: `${basicPath}sections/vehicles.png`},
+        {name: "starships", imgSrc: `${basicPath}sections/starships.png`},
     ]
 
 }

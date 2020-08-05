@@ -80,12 +80,25 @@ a {
 
 }
 
+
+.sectionCard {
+  background-color: rgba(255, 255, 255, 0.0);
+  border: none;
+
+  }
+
+.sectionCard img {
+  height: 150px;
+  width: 150px;
+
+}
+
 .card-title {
   font-family: "Starjedi";
 }
 
 
-.descriptionButton {
+.descriptionButton, .backToPlanetsButton {
   color: white;
   background-color: #17a2b8;
   border-color: #17a2b8;
@@ -104,15 +117,29 @@ a {
     background-color: #138496;
     color: white;
   }
+
 }
 
-.planetsListWrapper, .planetItemWrapper {
+.sections {
+  background-color: rgba(255, 255, 255, 0.0);
+  border: 2px solid #17a2b8;
+  color: black;
+  transition: 0.4s;
+  letter-spacing: 2px;
+  &:hover {
+    background-color: #17a2b8;
+    transition: 0.4s;
+
+  }
+}
+
+.planetsListWrapper, .planetItemWrapper, .homeWrapper {
   background: url("https://starwars.reactlearning.ru/img/bg.jpg") no-repeat center center fixed, rgba(255, 255, 255, 0.6);
   background-blend-mode: color;
-  -moz-background-size: 100%; /* Firefox 3.6+ */
-  -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-  -o-background-size: 100%; /* Opera 9.6+ */
-  background-size: 100%; /* Современные браузеры */
+  -moz-background-size: 100%;
+  -webkit-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
 
 }
 
