@@ -2,32 +2,25 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Films from "./Films";
 import {
-    clearCharactersData,
-    clearFilmsList,
-    clearPlanetData,
-    clearSpeciesData,
-    clearStarshipsData,
-    clearVehiclesData,
     getFilmsList,
     setChosenFilm
 } from "../../redux/films-reducer";
 
 
+
 class FilmsContainer extends Component {
 
     componentDidMount() {
-
-        this.props.getFilmsList()
+        if (!this.props.films) {
+            this.props.getFilmsList()
+        }
         this.props.setChosenFilm(this.props.match.params.filmId)
+
     }
 
+
     componentWillUnmount() {
-        this.props.clearPlanetData()
-        this.props.clearFilmsList()
-        this.props.clearSpeciesData()
-        this.props.clearVehiclesData()
-        this.props.clearStarshipsData()
-        this.props.clearCharactersData()
+
     }
 
     render() {
@@ -49,13 +42,4 @@ const mapStateToProps = (state) => ({
     speciesDescription: state.filmsPage.selectedFilmSpeciesDescription,
 
 })
-export default connect(mapStateToProps, {
-    getFilmsList,
-    setChosenFilm,
-    clearPlanetData,
-    clearFilmsList,
-    clearSpeciesData,
-    clearVehiclesData,
-    clearStarshipsData,
-    clearCharactersData
-})(FilmsContainer);
+export default connect(mapStateToProps, {getFilmsList, setChosenFilm})(FilmsContainer);

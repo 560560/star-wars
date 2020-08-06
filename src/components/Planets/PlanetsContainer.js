@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Planets from "./Planets";
 import {connect} from "react-redux";
 import {getPlanetsList} from "../../redux/planets-reducer";
+import {compose} from "redux";
 
 class PlanetsContainer extends Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class PlanetsContainer extends Component {
 
     render() {
         return (
-            <Planets {...this.props} currentPage = {this.props.match.params.planetsId}/>
+            <Planets {...this.props} currentPage={this.props.match.params.planetsId}/>
         );
     }
 }
@@ -35,4 +36,7 @@ const mapStateToProps = (state) => (
 )
 
 
-export default connect(mapStateToProps, {getPlanetsList})(PlanetsContainer);
+export default compose(
+        connect(mapStateToProps, {getPlanetsList})
+)
+(PlanetsContainer);

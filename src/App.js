@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/main.scss';
 
 import PlanetsContainer from "./components/Planets/PlanetsContainer";
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, withRouter} from "react-router-dom";
 import Header from "./components/Header/Header";
 import PlanetItemContainer from "./components/Planets/PlanetItem/PlanetItemContainer";
 
@@ -22,6 +22,7 @@ function App(props) {
     return (
         <div className="appWrapper">
             <Header/>
+
             <Switch>
                 <Route exact path="/" component={HomeContainer}/>
                 <Route path="/planets/:planetsId?" component={PlanetsContainer}/>
@@ -39,4 +40,4 @@ function App(props) {
     );
 }
 
-export default App;
+export default withRouter(App);

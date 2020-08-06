@@ -27,11 +27,7 @@ let initialState = {
     selectedFilmStarshipsDescription: [],
     selectedFilmVehiclesDescription: [],
     selectedFilmSpeciesDescription: [],
-    gettingPlanetIterations: 0,
-    gettingCharactersIterations: 0,
-    gettingStarshipsIterations: 0,
-    gettingVehiclesIterations: 0,
-    gettingSpeciesIterations: 0,
+    gettingPlanetIterations: 0
 
 
 }

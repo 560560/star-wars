@@ -4,7 +4,7 @@ import Preloader from "../../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 
 
-const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDescription, parentPage}) => {
+const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDescription, parentPage, lastLocation}) => {
         const screenHeight = window.innerHeight
     const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
     if (!planet || isFetching) return <Preloader/>
@@ -79,7 +79,9 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                         </Col>
                     </Row>
 
-                    <NavLink to={"/planets/"+ parentPage} className="backToPlanetsButton mb-3 w-100">Back to planet list</NavLink>
+                    {!lastLocation && <NavLink to={"/planets/1"} className="backToPlanetsButton mb-3 w-100">Back to planet list</NavLink>}
+                    {lastLocation && <NavLink to={lastLocation.pathname} className="backToPlanetsButton mb-3 w-100">Go back</NavLink>}
+
                 </Container>
             </div>
         );

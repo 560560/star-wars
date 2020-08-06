@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import PlanetItem from "./PlanetItem";
 import {clearFilmData, clearResidentData, getPlanetDescription, setIsFetching} from "../../../redux/planets-reducer";
 import {compose} from "redux";
+import {withLastLocation} from "react-router-last-location";
 
 class PlanetItemContainer extends Component {
     componentDidMount() {
@@ -39,5 +40,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose (
+    withLastLocation,
     connect(mapStateToProps, {getPlanetDescription, clearFilmData, clearResidentData, setIsFetching}))
 (PlanetItemContainer);

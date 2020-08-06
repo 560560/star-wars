@@ -1,18 +1,26 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import {Carousel, Col, Container, Row} from "react-bootstrap";
 import Preloader from "../Common/Preloader/preloader";
-import {NavLink} from "react-router-dom";
+import {useHistory, NavLink} from "react-router-dom";
 
-const Films = ({films, images, isFetching, chosenFilm, planetsDescription, charactersDescription, starshipsDescription, vehiclesDescription, speciesDescription}) => {
+
+const Films = ({
+                   films, images, isFetching, chosenFilm, planetsDescription,
+                   charactersDescription, starshipsDescription, vehiclesDescription,
+                   speciesDescription
+               }) => {
+    const history = useHistory()
     const screenHeight = window.innerHeight
     const [index, setIndex] = useState(0);
     const [internalRouting, setInternalRouting] = useState(false)
 
     const handleSelect = (selectedIndex, e) => {
-
         setIndex(selectedIndex);
+        history.push("/films/" + (selectedIndex + 1))
         setInternalRouting(true)
+
     };
+
     if (chosenFilm !== null && chosenFilm !== index && !internalRouting) {
         setIndex(chosenFilm)
     }
@@ -43,6 +51,7 @@ const Films = ({films, images, isFetching, chosenFilm, planetsDescription, chara
                         </Carousel>
 
                     </Row>
+
                     <h1 className="text-center mt-4 mb-5">{films[index].title}</h1>
 
                     <Row className="mb-4 pt-2">
@@ -128,8 +137,6 @@ const Films = ({films, images, isFetching, chosenFilm, planetsDescription, chara
                             </Row>
                         </Col>
                     </Row>
-
-
 
 
                 </Container>
