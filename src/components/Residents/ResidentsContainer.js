@@ -5,7 +5,7 @@ import Residents from "./Residents";
 
 class ResidentsContainer extends Component {
     render() {
-        console.log(this.props)
+
         return (
             <Residents/>
         );

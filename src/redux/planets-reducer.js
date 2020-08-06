@@ -6,7 +6,7 @@ const SET_FILM_DATA = "planets-reducer/SET-FILM-DATA"
 const SET_RESIDENT_DATA = "planets-reducer/SET-RESIDENT-DATA"
 const CLEAR_FILM_DATA = "planets-reducer/CLEAR-FILM-DATA"
 const CLEAR_RESIDENT_DATA = "planets-reducer/CLEAR-RESIDENT-DATA"
-const SET_IS_FETCHING = "planets-reducer/SET-IS-FETCHING "
+const SET_IS_FETCHING = "planets-reducer/SET-IS-FETCHING"
 
 
 let initialState = {
@@ -120,9 +120,11 @@ export const getPlanetDescription = (planetId) => async (dispatch, getState) => 
     dispatch(setIsFetching(true))
     let response = await planetsApi.getPlanetDescription(planetId)
     dispatch(setPlanetDescription(response.data))
+
     getState().planetsPage.planet.films.forEach(item => {
         dispatch(getFilmData(item))
     })
+
     getState().planetsPage.planet.residents.forEach(item => {
         dispatch(getResidentData(item))
     })

@@ -23,6 +23,14 @@ export const planetsApi = {
 
 export const statisticsApi = {
     getSections () {
-        return instance.get("https://swapi.dev/api/")
+        return instance.get("")
+    }
+}
+export const filmsApi = {
+    getFilms () {
+        return instance.get("films/")
+    },
+    getDescriptionData (url) {
+        return instance(url)
     }
 }

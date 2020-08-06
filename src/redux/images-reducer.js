@@ -70,6 +70,14 @@ let initialState = {
         {name: "species", imgSrc: `${basicPath}sections/species.png`},
         {name: "vehicles", imgSrc: `${basicPath}sections/vehicles.png`},
         {name: "starships", imgSrc: `${basicPath}sections/starships.png`},
+    ],
+    films: [
+        {episode_id: 4, imgSrc: `${basicPath}films/aNewHope.jpg` },
+        {episode_id: 5, imgSrc: `${basicPath}films/theEmpireStrikesBack.jpg` },
+        {episode_id: 6, imgSrc: `${basicPath}films/returnOfTheJedi.jpg` },
+        {episode_id: 1, imgSrc: `${basicPath}films/thePhantomMenace.jpg` },
+        {episode_id: 2, imgSrc: `${basicPath}films/attackOfTheClones.jpg` },
+        {episode_id: 3, imgSrc: `${basicPath}films/revengeOfTheSith.jpg` }
     ]
 
 }

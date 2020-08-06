@@ -142,7 +142,7 @@ a {
   }
 }
 
-.planetsListWrapper, .planetItemWrapper, .homeWrapper {
+.planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper{
   background: url("https://starwars.reactlearning.ru/img/bg.jpg") no-repeat center center fixed, rgba(255, 255, 255, 0.6);
   background-blend-mode: color;
   -moz-background-size: 100%;
@@ -150,6 +150,18 @@ a {
   -o-background-size: 100%;
   background-size: 100%;
 
+}
+
+.filmsWrapper {
+  height: 100%;
+  padding-top: 40px;
+  & .carousel-item img {
+    border-radius: 20px;
+  }
+}
+
+.carousel{
+  width:70%;
 }
 
 
@@ -179,6 +191,11 @@ a {
   &:hover {
     background-color:  gray;
   }
+}
+
+
+.carouselWrapper {
+
 }
 
 @media (min-width: 768px) and (max-width: 1359px) {

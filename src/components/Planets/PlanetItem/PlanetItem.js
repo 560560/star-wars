@@ -71,7 +71,7 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                         <Col className="col-8 text-left">
                             <Row>{filmsDescription.map((film, i) =>
                                 <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/film/" + pageID(film.url)}>
+                                    <NavLink className="link" to={"/films/" + pageID(film.url)}>
                                         {film.title}
                                     </NavLink>
                                 </Col>)}
