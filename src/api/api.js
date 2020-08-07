@@ -34,3 +34,24 @@ export const filmsApi = {
         return instance(url)
     }
 }
+
+export const peopleApi = {
+    getPeople(pageNumber) {
+        return instance.get(`people/?page=${pageNumber}`)
+    },
+    getPeopleDescription(personId) {
+        return instance.get(`people/${personId}`)
+    },
+    getFilmData(filmUrl) {
+        return instance.get(`${filmUrl}`)
+    },
+    getStarshipData(starshipUrl) {
+        return instance.get(`${starshipUrl}`)
+    },
+    getVehiclesData(vehicleUrl) {
+        return instance.get(`${vehicleUrl}`)
+    },
+    getSpecieData(specieUrl) {
+        return instance.get(`${specieUrl}`)
+    }
+}

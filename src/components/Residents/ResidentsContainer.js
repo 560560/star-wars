@@ -1,18 +1,41 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
 import Residents from "./Residents";
-
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {getPeopleList} from "../../redux/people-reducer";
 
 class ResidentsContainer extends Component {
-    render() {
+    componentDidMount() {
+            this.props.getPeopleList(this.props.match.params.peopleId)
+    }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.match.params.peopleId !== this.props.match.params.peopleId) {
+            this.props.getPeopleList(this.props.match.params.peopleId)
+        }
+    }
+
+
+    render() {
         return (
-            <Residents/>
+            <Residents {...this.props} currentPage={this.props.match.params.peopleId}/>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => (
+    {
+        images: state.imagesStore.planets,
+        people: state.peoplePage.people,
+        prevPage: state.peoplePage.prevPage,
+        nextPage: state.peoplePage.nextPage,
+        isFetching: state.peoplePage.isFetching
 
-})
-export default connect(mapStateToProps, {})(ResidentsContainer);
+    }
+)
+
+
+export default compose(
+        connect(mapStateToProps, {getPeopleList})
+)
+(ResidentsContainer);

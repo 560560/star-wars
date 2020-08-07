@@ -1,4 +1,4 @@
-import React, {forwardRef, useState} from 'react';
+import React, {useState} from 'react';
 import {Carousel, Col, Container, Row} from "react-bootstrap";
 import Preloader from "../Common/Preloader/preloader";
 import {useHistory, NavLink} from "react-router-dom";
