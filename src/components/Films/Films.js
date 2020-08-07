@@ -74,26 +74,35 @@ const Films = ({
                     <Row className="mb-4">
                         <Col className="col-4 text-right descriptionTitle"><h5>Characters:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{charactersDescription[index].map((character, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/resident/" + pageID(character.url)}>
-                                        {character.name}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+
+                            {films[index].characters.length !== charactersDescription[index].length
+                                ? <h5>Loading...</h5>
+                                : <Row>{charactersDescription[index].map((character, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/resident/" + pageID(character.url)}>
+                                            {character.name}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>
+                            }
                         </Col>
                     </Row>
+
 
                     <Row className="mb-4">
                         <Col className="col-4 text-right descriptionTitle"><h5>Planets:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{planetsDescription[index].map((planet, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/planet/" + pageID(planet.url)}>
-                                        {planet.name}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+
+                            {films[index].planets.length !== planetsDescription[index].length
+                                ? <h5>Loading...</h5>
+                                : <Row>{planetsDescription[index].map((planet, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/planet/" + pageID(planet.url)}>
+                                            {planet.name}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>
+                            }
                         </Col>
                     </Row>
 
@@ -101,26 +110,31 @@ const Films = ({
                     <Row className="mb-4">
                         <Col className="col-4 text-right descriptionTitle"><h5>Starships:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{starshipsDescription[index].map((starship, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/starship/" + pageID(starship.url)}>
-                                        {starship.name}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+                            {films[index].starships.length !== starshipsDescription[index].length
+                                ? <h5>Loading...</h5>
+                                : <Row>{starshipsDescription[index].map((starship, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/starship/" + pageID(starship.url)}>
+                                            {starship.name}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>
+                            }
                         </Col>
                     </Row>
 
                     <Row className="mb-4">
                         <Col className="col-4 text-right descriptionTitle"><h5>Vehicles:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{vehiclesDescription[index].map((vehicle, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/vehicle/" + pageID(vehicle.url)}>
-                                        {vehicle.name}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+                            {films[index].vehicles.length !== vehiclesDescription[index].length
+                                ? <h5>Loading...</h5>
+                                : <Row>{vehiclesDescription[index].map((vehicle, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/vehicle/" + pageID(vehicle.url)}>
+                                            {vehicle.name}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>}
                         </Col>
                     </Row>
 
@@ -128,16 +142,17 @@ const Films = ({
                     <Row className="mb-4">
                         <Col className="col-4 text-right descriptionTitle"><h5>Species:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{speciesDescription[index].map((species, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/specie/" + pageID(species.url)}>
-                                        {species.name}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+                            {films[index].species.length !== speciesDescription[index].length
+                                ? <h5>Loading...</h5>
+                                : <Row>{speciesDescription[index].map((species, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/specie/" + pageID(species.url)}>
+                                            {species.name}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>}
                         </Col>
                     </Row>
-
 
                 </Container>
 

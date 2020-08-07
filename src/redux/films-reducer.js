@@ -21,6 +21,7 @@ const CLEAR_ITERATION = "films-reducer/CLEAR-ITERATION"
 
 let initialState = {
     films: null,
+    isFetching: false,
     chosenFilm: null,
     selectedFilmPlanetsDescription: [],
     selectedFilmCharactersDescription: [],
@@ -71,52 +72,97 @@ const filmsReducer = (state = initialState, action) => {
             }
 
         case SET_CHARACTERS_DATA:
+            let charactersArray = [...state.selectedFilmCharactersDescription]
+            charactersArray.map((subArray, i) => {
+                if (action.filmIndex === i) {
+                    return subArray.push(action.data)
+                } else {
+                    return subArray
+                }
+            })
             return {
                 ...state,
-                ...state.selectedFilmCharactersDescription[action.filmIndex].push(action.data)
+                selectedFilmCharactersDescription: charactersArray
+
             }
 
-        case CLEAR_CHARACTERS_DATA:
+        case
+        CLEAR_CHARACTERS_DATA:
             return {
                 ...state,
                 selectedFilmCharactersDescription: []
             }
 
-        case SET_STARSHIPS_DATA:
+        case
+        SET_STARSHIPS_DATA:
+            let starshipsArray = [...state.selectedFilmStarshipsDescription]
+            starshipsArray.map((subArray, i) => {
+                if (action.filmIndex === i) {
+                    return subArray.push(action.data)
+                } else {
+                    return subArray
+                }
+            })
             return {
                 ...state,
-                ...state.selectedFilmStarshipsDescription[action.filmIndex].push(action.data)
+                selectedFilmStarshipsDescription: starshipsArray
+
             }
-        case CLEAR_STARSHIPS_DATA:
+
+        case
+        CLEAR_STARSHIPS_DATA:
             return {
                 ...state,
                 selectedFilmStarshipsDescription: []
             }
 
-        case SET_SPECIES_DATA:
-
+        case
+        SET_SPECIES_DATA:
+            let speciesArray = [...state.selectedFilmSpeciesDescription]
+            speciesArray.map((subArray, i) => {
+                if (action.filmIndex === i) {
+                    return subArray.push(action.data)
+                } else {
+                    return subArray
+                }
+            })
             return {
                 ...state,
-                ...state.selectedFilmSpeciesDescription[action.filmIndex].push(action.data)
+                selectedFilmSpeciesDescription: speciesArray
             }
-        case CLEAR_SPECIES_DATA:
+
+        case
+        CLEAR_SPECIES_DATA:
             return {
                 ...state,
                 selectedFilmSpeciesDescription: []
             }
 
-        case SET_VEHICLES_DATA:
+        case
+        SET_VEHICLES_DATA:
+            let vehiclesArray = [...state.selectedFilmVehiclesDescription]
+            vehiclesArray.map((subArray, i) => {
+                if (action.filmIndex === i) {
+                    return subArray.push(action.data)
+                } else {
+                    return subArray
+                }
+            })
             return {
                 ...state,
-                ...state.selectedFilmVehiclesDescription[action.filmIndex].push(action.data)
+                selectedFilmVehiclesDescription: vehiclesArray
+
             }
-        case CLEAR_VEHICLES_DATA:
+
+        case
+        CLEAR_VEHICLES_DATA:
             return {
                 ...state,
                 selectedFilmVehiclesDescription: []
             }
 
-        case SET_DESCRIPTIONS_STRUCTURE:
+        case
+        SET_DESCRIPTIONS_STRUCTURE:
             return {
                 ...state,
                 selectedFilmPlanetsDescription: [...state.selectedFilmPlanetsDescription, []],
@@ -126,7 +172,8 @@ const filmsReducer = (state = initialState, action) => {
                 selectedFilmSpeciesDescription: [...state.selectedFilmSpeciesDescription, []]
             }
 
-        case CLEAR_ITERATION:
+        case
+        CLEAR_ITERATION:
             return {
                 ...state,
                 [action.nameOfCounter]: 0
@@ -216,13 +263,17 @@ export const getFilmsList = () => async (dispatch, getState) => {
 
     if (response.status === 200) {
         dispatch(setFilmsList(response.data.results))
+
         getState().filmsPage.films.forEach((film, i) => {
             dispatch(setDescriptionStructure(i))
+        })
+        dispatch(setIsFetching(false))
+
+        getState().filmsPage.films.forEach((film, i) => {
+
             film.planets.forEach(url => {
                 dispatch(getPlanetData(url, i))
             })
-
-
             film.characters.forEach(url => {
                 dispatch(getCharactersData(url, i))
             })
@@ -256,19 +307,9 @@ export const getPlanetData = (planetUrl, filmIndex) => async (dispatch, getState
 }
 
 export const getCharactersData = (characterUrl, filmIndex) => async (dispatch, getState) => {
-    /*    let urlsCount = 0;
-        getState().filmsPage.films.forEach(film => {
-            urlsCount += film.characters.length
-
-        })*/
     let response = await filmsApi.getDescriptionData(characterUrl)
-
     dispatch(setCharactersData(response.data, filmIndex))
-    /*    if (urlsCount === getState().filmsPage.gettingCharactersIterations) {
-            debugger
-            dispatch(setIsFetching(false))
-            dispatch(clearIterations("gettingCharactersIterations"))
-        }*/
+
 }
 
 

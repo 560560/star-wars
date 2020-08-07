@@ -18,10 +18,10 @@ class FilmsContainer extends Component {
 
     }
 
+componentDidUpdate(prevProps, prevState, snapshot) {
+        //console.log(this.props.charactersDescription[0])
+}
 
-    componentWillUnmount() {
-
-    }
 
     render() {
         return (

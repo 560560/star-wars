@@ -13,8 +13,7 @@ class ResidentItemContainer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.person && this.props.person.films.length === this.props.filmsDescription.length
-        ) {
+        if (this.props.person) {
             this.props.setIsFetching(false)
         }
     }

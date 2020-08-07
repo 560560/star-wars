@@ -124,6 +124,7 @@ export const getPersonDescription = (personId, lastLocationPath = "") => async (
 
         let person = getState().peoplePage.people[personIndex]
         dispatch(setPersonDescription(person))
+        dispatch(getHomePlanet(person.homeworld))
 
     } else {
         let response = await peopleApi.getPeopleDescription(personId)
