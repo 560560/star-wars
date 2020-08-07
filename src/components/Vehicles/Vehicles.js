@@ -1,10 +1,9 @@
 import React from 'react';
+import UnderConstruction from "../Common/UnderConstruction/UnderConstruction";
 
 const Vehicles = (props) => {
     return (
-        <div>
-            Vehicles
-        </div>
+       <UnderConstruction/>
     );
 }
 

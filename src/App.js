@@ -13,6 +13,8 @@ import FilmsContainer from "./components/Films/FilmsContainer";
 import SpeciesContainer from "./components/Species/SpeciesContainer";
 import VehiclesContainer from "./components/Vehicles/VehiclesContainer";
 import Footer from "./components/Footer/Footer";
+import VehicleItemContainer from "./components/Vehicles/VehicleItem/VehicleItemContainer";
+import SpecieItemContainer from "./components/Species/SpecieItem/SpecieItemContainer";
 
 
 
@@ -31,10 +33,12 @@ function App(props) {
                 <Route path="/films/:filmId?" component={FilmsContainer}/>
                 <Route path="/starships/:starshipsId?" component={StarshipsContainer}/>
                 <Route path="/starship/:starshipId?" component={StarshipItemContainer}/>
-                <Route exact path="/people/:peopleId?" component={ResidentsContainer}/>
-                <Route exact path="/resident/:residentId?" component={ResidentContainer}/>
-                <Route exact path="/species" component={SpeciesContainer}/>
-                <Route exact path="/vehicles" component={VehiclesContainer}/>
+                <Route path="/people/:peopleId?" component={ResidentsContainer}/>
+                <Route path="/resident/:residentId?" component={ResidentContainer}/>
+                <Route path="/species/:species?" component={SpeciesContainer}/>
+                <Route path="/specie/:specie?" component={SpecieItemContainer}/>
+                <Route path="/vehicles/:vehicles?" component={VehiclesContainer}/>
+                <Route path="/vehicle/:vehicle?" component={VehicleItemContainer}/>
             </Switch>
             <Footer/>
         </div>
