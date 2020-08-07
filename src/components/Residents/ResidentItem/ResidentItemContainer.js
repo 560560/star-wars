@@ -7,19 +7,21 @@ import {getPersonDescription, clearFilmData, setIsFetching} from "../../../redux
 
 class ResidentItemContainer extends Component {
     componentDidMount() {
-        this.props.getPersonDescription(this.props.match.params.residentId)
+        let lastPath = this.props.lastLocation && this.props.lastLocation.pathname
+        this.props.getPersonDescription(this.props.match.params.residentId, lastPath)
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.person && this.props.person.films.length === this.props.filmsDescription.length
-            ) {
+        ) {
             this.props.setIsFetching(false)
         }
     }
 
     componentWillUnmount() {
-    this.props.clearFilmData()
-       }
+        this.props.clearFilmData()
+    }
 
     render() {
 
@@ -34,10 +36,12 @@ const mapStateToProps = (state) => ({
     person: state.peoplePage.person,
     isFetching: state.peoplePage.isFetching,
     filmsDescription: state.peoplePage.selectedPersonFilmsDescription,
-    parentPage: state.peoplePage.currentPage
+    parentPage: state.peoplePage.currentPage,
+    personPage: state.peoplePage.personPage,
+    homePlanet: state.peoplePage.homePlanet
 })
 
-export default compose (
+export default compose(
     withLastLocation,
     connect(mapStateToProps, {getPersonDescription, clearFilmData, setIsFetching}))
 (ResidentItemContainer);

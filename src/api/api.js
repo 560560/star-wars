@@ -45,6 +45,11 @@ export const peopleApi = {
     getFilmData(filmUrl) {
         return instance.get(`${filmUrl}`)
     },
+
+    getHomePlanet(homePlanetUrl) {
+        return instance.get(`${homePlanetUrl}`)
+    },
+
     getStarshipData(starshipUrl) {
         return instance.get(`${starshipUrl}`)
     },

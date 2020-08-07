@@ -57,6 +57,7 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                     <Row className="mb-3">
                         <Col className="col-4 text-right descriptionTitle"><h5>Residents:</h5></Col>
                         <Col className="col-8 text-left">
+
                             {planet.residents.length !== residentsDescription.length
                                 ? <h5>Loading...</h5>
                                 : <Row>{residentsDescription.map((resident, i) =>

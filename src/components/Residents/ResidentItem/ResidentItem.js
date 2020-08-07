@@ -84,8 +84,8 @@ const ResidentItem = ({images, isFetching, person, filmsDescription, parentPage,
                         </Col>
                     </Row>
 
-                    {!lastLocation && <NavLink to={"/planets/1"} className="backToPlanetsButton mb-3 w-100">Back to planet list</NavLink>}
-                    {lastLocation && <NavLink to={lastLocation.pathname} className="backToPlanetsButton mb-3 w-100">Go back</NavLink>}
+                    {!lastLocation && <NavLink to={"/people/1"} className="backToPeopleButton mb-3 w-100">Back to people list</NavLink>}
+                    {lastLocation && <NavLink to={lastLocation.pathname} className="backToPeopleButton mb-3 w-100">Go back</NavLink>}
 
                 </Container>
             </div>

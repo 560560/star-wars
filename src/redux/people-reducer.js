@@ -5,6 +5,8 @@ const SET_PERSON_DESCRIPTION = "people-reducer/SET-PERSON-DESCRIPTION"
 const SET_FILM_DATA = "people-reducer/SET-FILM-DATA"
 const CLEAR_FILM_DATA = "people-reducer/CLEAR-FILM-DATA"
 const SET_IS_FETCHING = "people-reducer/SET-IS-FETCHING"
+const SET_HOME_PLANET = "people-reducer/SET-HOME-PLANET"
+const SET_PERSON_PAGE = "people-reducer/SET-PERSON-PAGE"
 
 
 let initialState = {
@@ -15,7 +17,9 @@ let initialState = {
     person: null,
     isFetching: false,
     currentPage: null,
-    selectedPersonFilmsDescription: []
+    selectedPersonFilmsDescription: [],
+    homePlanet: null,
+    personPage: null
 }
 
 const peopleReducer = (state = initialState, action) => {
@@ -49,9 +53,18 @@ const peopleReducer = (state = initialState, action) => {
         case SET_IS_FETCHING:
             return {
                 ...state,
-                isFetching: action.state
+                isFetching: action.fetchingStatatus
             }
-
+        case SET_HOME_PLANET:
+            return {
+                ...state,
+                homePlanet: action.data
+            }
+        case SET_PERSON_PAGE:
+            return {
+                ...state,
+                personPage: action.pageNumber
+            }
         default:
             return state
 
@@ -79,8 +92,15 @@ export const clearFilmData = () => {
 }
 
 
-export const setIsFetching = (state) => {
-    return {type: SET_IS_FETCHING, state}
+export const setIsFetching = (fetchingStatatus) => {
+    return {type: SET_IS_FETCHING, fetchingStatatus}
+}
+
+const setHomePlanet = (data) => {
+    return {type: SET_HOME_PLANET, data}
+}
+const setPersonPage = (pageNumber) => {
+    return {type: SET_PERSON_PAGE, pageNumber}
 }
 
 
@@ -93,10 +113,10 @@ export const getPeopleList = (pageNumber) => async (dispatch) => {
 }
 
 
-export const getPersonDescription = (personId) => async (dispatch, getState) => {
+export const getPersonDescription = (personId, lastLocationPath = "") => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
-
-    if (getState().peoplePage.people) {
+    dispatch(setPersonPage(personId))
+    if (getState().peoplePage.people && lastLocationPath.includes("/people/")) {
         const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
         let personIndex = getState().peoplePage.people
             .map((person, index) => (pageID(person.url) === pageID(personId)) ? index : undefined)
@@ -105,11 +125,11 @@ export const getPersonDescription = (personId) => async (dispatch, getState) => 
         let person = getState().peoplePage.people[personIndex]
         dispatch(setPersonDescription(person))
 
-
     } else {
         let response = await peopleApi.getPeopleDescription(personId)
         if (response.status === 200) {
             dispatch(setPersonDescription(response.data))
+            dispatch(getHomePlanet(response.data.homeworld))
         }
 
     }
@@ -119,20 +139,23 @@ export const getPersonDescription = (personId) => async (dispatch, getState) => 
     })
 
 
-    if (getState().peoplePage.person.films.length === getState().peoplePage.selectedPersonFilmsDescription.length) {
-        dispatch(setIsFetching(false))
-    }
-
 }
 
 
 export const getFilmData = (filmUrl) => async (dispatch) => {
-    dispatch(setIsFetching(true))
+    /*dispatch(setIsFetching(true))*/
     let response = await peopleApi.getFilmData(filmUrl)
     if (response.status === 200) {
         dispatch(setFilmData(response.data))
     }
 }
 
+export const getHomePlanet = (homePlanetUrl) => async (dispatch) => {
+    let response = await peopleApi.getHomePlanet(homePlanetUrl)
+    if (response.status === 200) {
+        dispatch(setHomePlanet(response.data))
+    }
+
+}
 
 export default peopleReducer

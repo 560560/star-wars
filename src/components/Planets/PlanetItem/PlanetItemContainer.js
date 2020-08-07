@@ -7,7 +7,9 @@ import {withLastLocation} from "react-router-last-location";
 
 class PlanetItemContainer extends Component {
     componentDidMount() {
-        this.props.getPlanetDescription(this.props.match.params.planetId)
+        let lastPath = this.props.lastLocation && this.props.lastLocation.pathname
+        this.props.getPlanetDescription(this.props.match.params.planetId, lastPath)
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -17,8 +19,8 @@ class PlanetItemContainer extends Component {
     }
 
     componentWillUnmount() {
-    this.props.clearFilmData()
-    this.props.clearResidentData()
+        this.props.clearFilmData()
+        this.props.clearResidentData()
     }
 
     render() {
@@ -35,10 +37,11 @@ const mapStateToProps = (state) => ({
     isFetching: state.planetsPage.isFetching,
     filmsDescription: state.planetsPage.selectedPlanetFilmsDescription,
     residentsDescription: state.planetsPage.selectedPlanetResidentsDescription,
-    parentPage: state.planetsPage.currentPage
+    parentPage: state.planetsPage.currentPage,
+    planetPage: state.planetsPage.planetPage,
 })
 
-export default compose (
+export default compose(
     withLastLocation,
     connect(mapStateToProps, {getPlanetDescription, clearFilmData, clearResidentData, setIsFetching}))
 (PlanetItemContainer);

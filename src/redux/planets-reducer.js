@@ -7,6 +7,7 @@ const SET_RESIDENT_DATA = "planets-reducer/SET-RESIDENT-DATA"
 const CLEAR_FILM_DATA = "planets-reducer/CLEAR-FILM-DATA"
 const CLEAR_RESIDENT_DATA = "planets-reducer/CLEAR-RESIDENT-DATA"
 const SET_IS_FETCHING = "planets-reducer/SET-IS-FETCHING"
+const SET_PLANET_PAGE = "planets-reducer/SET-PLANET-PAGE"
 
 
 let initialState = {
@@ -18,7 +19,8 @@ let initialState = {
     selectedPlanetFilmsDescription: [],
     isFetching: false,
     selectedPlanetResidentsDescription: [],
-    currentPage: null
+    currentPage: null,
+    planetPage: null
 
 }
 
@@ -53,7 +55,7 @@ const planetsReducer = (state = initialState, action) => {
         case SET_IS_FETCHING:
             return {
                 ...state,
-                isFetching: action.state
+                isFetching: action.fetchingStatatus
             }
         case SET_RESIDENT_DATA:
             return {
@@ -65,7 +67,11 @@ const planetsReducer = (state = initialState, action) => {
                 ...state,
                 selectedPlanetResidentsDescription: []
             }
-
+        case SET_PLANET_PAGE:
+            return {
+                ...state,
+                planetPage: action.pageNumber
+            }
         default:
             return state
 
@@ -102,8 +108,12 @@ export const clearResidentData = () => {
     return {type: CLEAR_RESIDENT_DATA}
 }
 
-export const setIsFetching = (state) => {
-    return {type: SET_IS_FETCHING, state}
+export const setIsFetching = (fetchingStatatus) => {
+    return {type: SET_IS_FETCHING, fetchingStatatus}
+}
+
+const setPlanetPage = (pageNumber) => {
+    return {type: SET_PLANET_PAGE, pageNumber}
 }
 
 
@@ -116,24 +126,24 @@ export const getPlanetsList = (pageNumber) => async (dispatch) => {
 }
 
 
-export const getPlanetDescription = (planetId) => async (dispatch, getState) => {
+export const getPlanetDescription = (planetId, lastLocationPath = "") => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
-
-    if (getState().planetsPage.planets) {
-
+    dispatch(setPlanetPage(planetId))
+    if (getState().planetsPage.planets && lastLocationPath.includes("/planets/")) {
         const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
-
         let planetIndex = getState().planetsPage.planets
-            .map((planet, index) => (pageID(planet.url) === pageID(planetId))  ? index : undefined)
+            .map((planet, index) => (pageID(planet.url) === pageID(planetId)) ? index : undefined)
             .filter(item => item !== undefined)
-
 
         let planet = getState().planetsPage.planets[planetIndex]
         dispatch(setPlanetDescription(planet))
 
     } else {
         let response = await planetsApi.getPlanetDescription(planetId)
-        dispatch(setPlanetDescription(response.data))
+        if (response.status === 200) {
+            dispatch(setPlanetDescription(response.data))
+        }
+
     }
 
     getState().planetsPage.planet.films.forEach(item => {
