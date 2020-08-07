@@ -11,8 +11,7 @@ class PlanetItemContainer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.planet && this.props.planet.films.length === this.props.filmsDescription.length
-            && this.props.planet.residents.length === this.props.residentsDescription.length) {
+        if (this.props.planet) {
             this.props.setIsFetching(false)
         }
     }

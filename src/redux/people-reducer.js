@@ -94,20 +94,33 @@ export const getPeopleList = (pageNumber) => async (dispatch) => {
 
 
 export const getPersonDescription = (personId) => async (dispatch, getState) => {
-
     dispatch(setIsFetching(true))
-    let response = await peopleApi.getPeopleDescription(personId)
-    if (response.status === 200) {
-        dispatch(setPersonDescription(response.data))
 
-        getState().peoplePage.person.films.forEach(item => {
-            dispatch(getFilmData(item))
-        })
+    if (getState().peoplePage.people) {
+        const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
+        let personIndex = getState().peoplePage.people
+            .map((person, index) => (pageID(person.url) === pageID(personId)) ? index : undefined)
+            .filter(item => item !== undefined)
+
+        let person = getState().peoplePage.people[personIndex]
+        dispatch(setPersonDescription(person))
 
 
-        if (getState().peoplePage.person.films.length === getState().peoplePage.selectedPersonFilmsDescription.length) {
-            dispatch(setIsFetching(false))
+    } else {
+        let response = await peopleApi.getPeopleDescription(personId)
+        if (response.status === 200) {
+            dispatch(setPersonDescription(response.data))
         }
+
+    }
+
+    getState().peoplePage.person.films.forEach(item => {
+        dispatch(getFilmData(item))
+    })
+
+
+    if (getState().peoplePage.person.films.length === getState().peoplePage.selectedPersonFilmsDescription.length) {
+        dispatch(setIsFetching(false))
     }
 
 }

@@ -6,8 +6,8 @@ import {compose} from "redux";
 
 class PlanetsContainer extends Component {
     componentDidMount() {
+        if (this.props.match.params.planetsId !== this.props.currentPage){this.props.getPlanetsList(this.props.match.params.planetsId)}
 
-        this.props.getPlanetsList(this.props.match.params.planetsId)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -30,7 +30,8 @@ const mapStateToProps = (state) => (
         planets: state.planetsPage.planets,
         prevPage: state.planetsPage.prevPage,
         nextPage: state.planetsPage.nextPage,
-        isFetching: state.planetsPage.isFetching
+        isFetching: state.planetsPage.isFetching,
+        currentPage: state.planetsPage.currentPage,
 
     }
 )

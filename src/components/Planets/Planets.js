@@ -20,7 +20,7 @@ const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage})
                 <Container>
                     <h1 className="text-center pt-5 mb-5">Planets of the Star wars universe</h1>
                     <Row className={isFetching ? "justify-content-center foggy" : "justify-content-center"}>
-                        {planets.map((planet, i) => <PlanetListItem key={i} images={images} planet={planet} currentPage={currentPage}/>)}
+                        {planets.map((planet, i) => <PlanetListItem key={i} images={images} planet={planet}/>)}
                     </Row>
                     <Row className="justify-content-center mt-3 mb-4">
 

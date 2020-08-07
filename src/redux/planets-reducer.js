@@ -118,13 +118,27 @@ export const getPlanetsList = (pageNumber) => async (dispatch) => {
 
 export const getPlanetDescription = (planetId) => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
-    let response = await planetsApi.getPlanetDescription(planetId)
-    dispatch(setPlanetDescription(response.data))
+
+    if (getState().planetsPage.planets) {
+
+        const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
+
+        let planetIndex = getState().planetsPage.planets
+            .map((planet, index) => (pageID(planet.url) === pageID(planetId))  ? index : undefined)
+            .filter(item => item !== undefined)
+
+
+        let planet = getState().planetsPage.planets[planetIndex]
+        dispatch(setPlanetDescription(planet))
+
+    } else {
+        let response = await planetsApi.getPlanetDescription(planetId)
+        dispatch(setPlanetDescription(response.data))
+    }
 
     getState().planetsPage.planet.films.forEach(item => {
         dispatch(getFilmData(item))
     })
-
     getState().planetsPage.planet.residents.forEach(item => {
         dispatch(getResidentData(item))
     })

@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 
 const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDescription, parentPage, lastLocation}) => {
-        const screenHeight = window.innerHeight
+    const screenHeight = window.innerHeight
     const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
     if (!planet || isFetching) return <Preloader/>
     else {
@@ -57,25 +57,32 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                     <Row className="mb-3">
                         <Col className="col-4 text-right descriptionTitle"><h5>Residents:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{residentsDescription.map((resident, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/resident/" + pageID(resident.url)}>
-                                        {resident.name}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+                            {planet.residents.length !== residentsDescription.length
+                                ? <h5>Loading...</h5>
+                                : <Row>{residentsDescription.map((resident, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/resident/" + pageID(resident.url)}>
+                                            {resident.name}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>}
                         </Col>
                     </Row>
                     <Row className="mb-3">
                         <Col className="col-4 text-right descriptionTitle"><h5>Films:</h5></Col>
                         <Col className="col-8 text-left">
-                            <Row>{filmsDescription.map((film, i) =>
-                                <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/films/" + pageID(film.url)}>
-                                        {film.title}
-                                    </NavLink>
-                                </Col>)}
-                            </Row>
+
+
+                            {planet.films.length !== filmsDescription.length
+                                ? <h5>Loading...</h5>
+                                : <Row>{filmsDescription.map((film, i) =>
+                                    <Col key={i} className="col-4 mt-1 mb-1">
+                                        <NavLink className="link" to={"/films/" + pageID(film.url)}>
+                                            {film.title}
+                                        </NavLink>
+                                    </Col>)}
+                                </Row>}
+
                         </Col>
                     </Row>
 

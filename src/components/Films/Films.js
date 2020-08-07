@@ -76,7 +76,7 @@ const Films = ({
                         <Col className="col-8 text-left">
                             <Row>{charactersDescription[index].map((character, i) =>
                                 <Col key={i} className="col-4 mt-1 mb-1">
-                                    <NavLink className="link" to={"/people/" + pageID(character.url)}>
+                                    <NavLink className="link" to={"/resident/" + pageID(character.url)}>
                                         {character.name}
                                     </NavLink>
                                 </Col>)}

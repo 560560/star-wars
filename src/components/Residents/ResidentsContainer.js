@@ -6,7 +6,9 @@ import {getPeopleList} from "../../redux/people-reducer";
 
 class ResidentsContainer extends Component {
     componentDidMount() {
+        if (this.props.match.params.peopleId !== this.props.currentPage) {
             this.props.getPeopleList(this.props.match.params.peopleId)
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -29,7 +31,9 @@ const mapStateToProps = (state) => (
         people: state.peoplePage.people,
         prevPage: state.peoplePage.prevPage,
         nextPage: state.peoplePage.nextPage,
-        isFetching: state.peoplePage.isFetching
+        isFetching: state.peoplePage.isFetching,
+        currentPage: state.peoplePage.currentPage
+
 
     }
 )

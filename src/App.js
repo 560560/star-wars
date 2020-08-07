@@ -12,6 +12,7 @@ import HomeContainer from "./components/Home/HomeContainer";
 import FilmsContainer from "./components/Films/FilmsContainer";
 import SpeciesContainer from "./components/Species/SpeciesContainer";
 import VehiclesContainer from "./components/Vehicles/VehiclesContainer";
+import Footer from "./components/Footer/Footer";
 
 
 
@@ -35,6 +36,7 @@ function App(props) {
                 <Route exact path="/species" component={SpeciesContainer}/>
                 <Route exact path="/vehicles" component={VehiclesContainer}/>
             </Switch>
+            <Footer/>
         </div>
     );
 }

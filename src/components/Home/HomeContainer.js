@@ -7,7 +7,9 @@ import {getSections} from "../../redux/statistics-reducer";
 
 class HomeContainer extends Component {
     componentDidMount() {
-        this.props.getSections()
+        if (!this.props.sections) {
+            this.props.getSections()
+        }
     }
 
     render() {
