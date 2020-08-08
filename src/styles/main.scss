@@ -236,6 +236,15 @@ a {
   }
 }
 
+
+
+ .carousel-caption {
+    & h1 {
+      text-shadow: 1px 1px 3px #000;
+      letter-spacing: 2px
+    }
+  }
+
 @media (min-width: 768px) and (max-width: 1366px) {
 
   h1 {
@@ -302,6 +311,15 @@ a {
 
     & .container {
       min-width: 95%;
+    }
+    & .carousel-caption {
+      padding: 0;
+      bottom: 5px;
+      & h1{
+        font-size: 1.5rem;
+        text-shadow: 1px 1px 3px #000;
+        letter-spacing:2px
+      }
     }
   }
 
