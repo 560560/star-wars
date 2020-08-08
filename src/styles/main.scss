@@ -4,10 +4,12 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   margin: 0 0 70px 0 !important;
 
 }
+
 @font-face {
   font-family: 'Starjedi';
   font-style: normal;
@@ -95,7 +97,6 @@ a {
 }
 
 
-
 .sectionCard {
   background-color: rgba(255, 255, 255, 0.0);
   border: none;
@@ -149,7 +150,7 @@ a {
   }
 }
 
-.planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper{
+.planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper {
   min-height: 100vh;
   background: url("https://starwars.reactlearning.ru/img/bg.jpg") no-repeat center center fixed, rgba(255, 255, 255, 0.6);
   background-blend-mode: color;
@@ -163,17 +164,18 @@ a {
 .filmsWrapper {
   height: 100%;
   padding-top: 40px;
+
   & .carousel-item img {
     border-radius: 20px;
   }
 }
 
-.carousel{
-  width:70%;
+.carousel {
+  width: 70%;
 }
 
 
-.paginator a{
+.paginator a {
   width: 200px;
   color: white;
   background-color: #17a2b8;
@@ -187,6 +189,7 @@ a {
   line-height: 1.5;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
   &:hover {
     text-decoration: none;
     background-color: #138496;
@@ -194,10 +197,11 @@ a {
   }
 }
 
-.pseudoButtonOff a{
+.pseudoButtonOff a {
   background-color: gray;
+
   &:hover {
-    background-color:  gray;
+    background-color: gray;
   }
 }
 
@@ -216,32 +220,147 @@ a {
 }
 
 
-@media (min-width: 768px) and (max-width: 1359px) {
+@media (min-width: 768px) and (max-width: 1366px) {
+
+  h1 {
+    font-size: 2.0rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h5 {
+    font-size: 1.0rem;
+
+  }
+
+  .descriptionText {
+    font-size: 15px;
+  }
+
+  .planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper {
+    min-height: 100%;
+    background: none;
+
+  }
+
+
+  .sectionCard {
+
+  }
 
   .planetsListWrapper {
     background: none;
   }
 
+  .planetItemWrapper {
+
+    & img {
+      height: 150px;
+      width: 150px;
+    }
+
+  }
+
   .planetCard {
+
     background-color: #F8F9FA;
+
 
     &:hover {
       border: none;
     }
+  }
+
+  .planetListContainer {
+
+    min-width: 100%;
+
+
+  }
+  .footerWrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #f5f5f5;
   }
 }
 
+
 @media (max-width: 767px) {
-  .planetsListWrapper {
-    background: none;
+  html {
+    position: relative;
+    min-height: 100%;
   }
+
+  body {
+    margin: 0 0 70px 0 !important;
+
+  }
+
+  h1 {
+    font-size: 2.0rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h5 {
+    font-size: 1.0rem;
+
+  }
+
+  .descriptionText {
+    font-size: 15px;
+  }
+
+  .planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper {
+    min-height: 100%;
+    background: none;
+
+  }
+
+
+  .sectionCard {
+
+  }
+
+  .planetItemContainer {
+    min-width: 90%;
+  }
+
+  .planetListContainer {
+    min-width: 90%;
+  }
+
+  .planetItemWrapper {
+
+    & img {
+      height: 150px;
+      width: 150px;
+    }
+
+  }
+
   .planetCard {
-    width: 70%;
+    max-width: 70%;
     background-color: #F8F9FA;
 
     &:hover {
       border: none;
     }
   }
-
+  .paginator a {
+    width: 130px
+  }
+  .footerWrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #f5f5f5;
+  }
 }

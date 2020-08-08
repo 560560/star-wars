@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Residents from "./Residents";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {getPeopleList} from "../../redux/people-reducer";
+import {getPeopleList, setPeopleListYPosition} from "../../redux/people-reducer";
 
 class ResidentsContainer extends Component {
     componentDidMount() {
@@ -32,7 +32,8 @@ const mapStateToProps = (state) => (
         prevPage: state.peoplePage.prevPage,
         nextPage: state.peoplePage.nextPage,
         isFetching: state.peoplePage.isFetching,
-        currentPage: state.peoplePage.currentPage
+        currentPage: state.peoplePage.currentPage,
+        peopleListYPosition: state.peoplePage.peopleListYPosition
 
 
     }
@@ -40,6 +41,6 @@ const mapStateToProps = (state) => (
 
 
 export default compose(
-        connect(mapStateToProps, {getPeopleList})
+        connect(mapStateToProps, {getPeopleList, setPeopleListYPosition})
 )
 (ResidentsContainer);

@@ -8,6 +8,7 @@ const CLEAR_FILM_DATA = "planets-reducer/CLEAR-FILM-DATA"
 const CLEAR_RESIDENT_DATA = "planets-reducer/CLEAR-RESIDENT-DATA"
 const SET_IS_FETCHING = "planets-reducer/SET-IS-FETCHING"
 const SET_PLANET_PAGE = "planets-reducer/SET-PLANET-PAGE"
+const SET_PLANET_LIST_Y_POSITION = "SET-PLANET-LIST-Y-POSITION"
 
 
 let initialState = {
@@ -20,7 +21,8 @@ let initialState = {
     isFetching: false,
     selectedPlanetResidentsDescription: [],
     currentPage: null,
-    planetPage: null
+    planetPage: null,
+    planetListYPosition: null
 
 }
 
@@ -72,6 +74,12 @@ const planetsReducer = (state = initialState, action) => {
                 ...state,
                 planetPage: action.pageNumber
             }
+
+        case SET_PLANET_LIST_Y_POSITION:
+        return {
+            ...state,
+            planetListYPosition: action.y
+        }
         default:
             return state
 
@@ -114,6 +122,10 @@ export const setIsFetching = (fetchingStatatus) => {
 
 const setPlanetPage = (pageNumber) => {
     return {type: SET_PLANET_PAGE, pageNumber}
+}
+
+export const setPlanetListYPosition = (y) => {
+    return {type: SET_PLANET_LIST_Y_POSITION, y}
 }
 
 

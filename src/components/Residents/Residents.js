@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import Preloader from "../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 import ResidentListItem from "./ResidentListItem/ResidentListItem";
+import {setPeopleListYPosition} from "../../redux/people-reducer";
 
 
-const Residents = ({isFetching, images, people, prevPage, nextPage, currentPage}) => {
+const Residents = ({isFetching, images, people, prevPage, nextPage, currentPage, setPeopleListYPosition, peopleListYPosition}) => {
+    useEffect(() => {
+        window.scrollTo(0, peopleListYPosition)
+    }, [])
     if (!people) return <Preloader/>
     else {
 
@@ -21,7 +25,10 @@ const Residents = ({isFetching, images, people, prevPage, nextPage, currentPage}
                 <Container>
                     <h1 className="text-center pt-5 mb-5">People of the Star wars universe</h1>
                     <Row className={isFetching ? "justify-content-center foggy" : "justify-content-center"}>
-                        {people.map((resident, i) => <ResidentListItem key={i} images={images} resident={resident} currentPage={currentPage}/>)}
+                        {people.map((resident, i) => <ResidentListItem key={i}
+                                                                       resident={resident}
+                                                                       currentPage={currentPage}
+                                                                       setPeopleListYPosition={setPeopleListYPosition}/>)}
                     </Row>
                     <Row className="justify-content-center mt-3 mb-4">
 

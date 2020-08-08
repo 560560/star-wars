@@ -7,6 +7,7 @@ const CLEAR_FILM_DATA = "people-reducer/CLEAR-FILM-DATA"
 const SET_IS_FETCHING = "people-reducer/SET-IS-FETCHING"
 const SET_HOME_PLANET = "people-reducer/SET-HOME-PLANET"
 const SET_PERSON_PAGE = "people-reducer/SET-PERSON-PAGE"
+const SET_PEOPLE_LIST_Y_POSITION = "SET-PEOPLE-LIST-Y-POSITION"
 
 
 let initialState = {
@@ -19,7 +20,8 @@ let initialState = {
     currentPage: null,
     selectedPersonFilmsDescription: [],
     homePlanet: null,
-    personPage: null
+    personPage: null,
+    peopleListYPosition: null
 }
 
 const peopleReducer = (state = initialState, action) => {
@@ -65,6 +67,11 @@ const peopleReducer = (state = initialState, action) => {
                 ...state,
                 personPage: action.pageNumber
             }
+        case SET_PEOPLE_LIST_Y_POSITION:
+            return {
+                ...state,
+                peopleListYPosition: action.y
+            }
         default:
             return state
 
@@ -101,6 +108,10 @@ const setHomePlanet = (data) => {
 }
 const setPersonPage = (pageNumber) => {
     return {type: SET_PERSON_PAGE, pageNumber}
+}
+
+export const setPeopleListYPosition = (y) => {
+    return {type: SET_PEOPLE_LIST_Y_POSITION, y}
 }
 
 

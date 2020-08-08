@@ -4,7 +4,7 @@ import Preloader from "../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 
 const Home = ({images, sections}) => {
-    const screenHeight = window.innerHeight
+    const screenHeight = window.innerHeight*0.85
 
     if (!sections) return <Preloader/>
     else {

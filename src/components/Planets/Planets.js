@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import PlanetListItem from "./PlanetListItem/PlanetListItem";
 import Preloader from "../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 
-const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage}) => {
+const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage, planetListYPosition, setPlanetListYPosition}) => {
+    useEffect(() => {
+        window.scrollTo(0, planetListYPosition)
+    }, [])
+
     if (!planets) return <Preloader/>
     else {
 
@@ -14,13 +18,12 @@ const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage})
                 return parseInt((url).replace(/[^\d]/g, ''))
             }
         }
-
         return (
             <div className="planetsListWrapper" >
-                <Container>
+                <Container className="planetListContainer">
                     <h1 className="text-center pt-5 mb-5">Planets of the Star wars universe</h1>
                     <Row className={isFetching ? "justify-content-center foggy" : "justify-content-center"}>
-                        {planets.map((planet, i) => <PlanetListItem key={i} images={images} planet={planet}/>)}
+                        {planets.map((planet, i) => <PlanetListItem key={i} images={images} planet={planet} setPlanetListYPosition={setPlanetListYPosition}/>)}
                     </Row>
                     <Row className="justify-content-center mt-3 mb-4">
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Planets from "./Planets";
 import {connect} from "react-redux";
-import {getPlanetsList} from "../../redux/planets-reducer";
+import {getPlanetsList, setPlanetListYPosition} from "../../redux/planets-reducer";
 import {compose} from "redux";
 
 class PlanetsContainer extends Component {
@@ -32,12 +32,13 @@ const mapStateToProps = (state) => (
         nextPage: state.planetsPage.nextPage,
         isFetching: state.planetsPage.isFetching,
         currentPage: state.planetsPage.currentPage,
+        planetListYPosition: state.planetsPage.planetListYPosition
 
     }
 )
 
 
 export default compose(
-        connect(mapStateToProps, {getPlanetsList})
+        connect(mapStateToProps, {getPlanetsList, setPlanetListYPosition})
 )
 (PlanetsContainer);
