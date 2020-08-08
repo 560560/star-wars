@@ -48,7 +48,7 @@ const ResidentItem = ({isFetching, person, filmsDescription, lastLocation, homeP
                         <Col className="col-8 text-left descriptionText">{person.eye_color}</Col>
                     </Row>
                     <Row className="mb-3">
-                        <Col className="col-4 text-right descriptionTitle"><h5>Birth year water:</h5></Col>
+                        <Col className="col-4 text-right descriptionTitle"><h5>Birth year:</h5></Col>
                         <Col className="col-8 text-left descriptionText">{person.birth_year}</Col>
                     </Row>
                     <Row className="mb-3">

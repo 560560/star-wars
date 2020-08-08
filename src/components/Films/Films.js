@@ -75,7 +75,7 @@ const Films = ({
                             {films[index].characters.length !== charactersDescription[index].length
                                 ? <h5>Loading...</h5>
                                 : <Row>{charactersDescription[index].map((character, i) =>
-                                    <Col key={i} className="col-sm-4 col-6 mt-1 mb-1">
+                                    <Col key={i} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
                                         <NavLink className="link" to={"/resident/" + pageID(character.url)}>
                                             {character.name}
                                         </NavLink>
@@ -93,7 +93,7 @@ const Films = ({
                             {films[index].planets.length !== planetsDescription[index].length
                                 ? <h5>Loading...</h5>
                                 : <Row>{planetsDescription[index].map((planet, i) =>
-                                    <Col key={i} className="col-sm-4 col-6 mt-1 mb-1">
+                                    <Col key={i} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
                                         <NavLink className="link" to={"/planet/" + pageID(planet.url)}>
                                             {planet.name}
                                         </NavLink>
@@ -110,7 +110,7 @@ const Films = ({
                             {films[index].starships.length !== starshipsDescription[index].length
                                 ? <h5>Loading...</h5>
                                 : <Row>{starshipsDescription[index].map((starship, i) =>
-                                    <Col key={i} className="col-sm-4 col-6 mt-1 mb-1">
+                                    <Col key={i} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
                                         <NavLink className="link" to={"/starship/" + pageID(starship.url)}>
                                             {starship.name}
                                         </NavLink>
@@ -126,7 +126,7 @@ const Films = ({
                             {films[index].vehicles.length !== vehiclesDescription[index].length
                                 ? <h5>Loading...</h5>
                                 : <Row>{vehiclesDescription[index].map((vehicle, i) =>
-                                    <Col key={i} className="col-sm-4 col-6 mt-1 mb-1">
+                                    <Col key={i} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
                                         <NavLink className="link" to={"/vehicle/" + pageID(vehicle.url)}>
                                             {vehicle.name}
                                         </NavLink>
@@ -142,7 +142,7 @@ const Films = ({
                             {films[index].species.length !== speciesDescription[index].length
                                 ? <h5>Loading...</h5>
                                 : <Row>{speciesDescription[index].map((species, i) =>
-                                    <Col key={i} className="col-sm-4 col-6 mt-1 mb-1">
+                                    <Col key={i} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
                                         <NavLink className="link" to={"/specie/" + pageID(species.url)}>
                                             {species.name}
                                         </NavLink>

@@ -295,6 +295,16 @@ a {
 
 
   }
+
+  .filmsWrapper {
+    height: 100%;
+    padding-top: 40px;
+
+    & .container {
+      min-width: 95%;
+    }
+  }
+
   .footerWrapper {
     position: absolute;
     bottom: 0;
@@ -386,6 +396,9 @@ a {
   .filmsWrapper {
     height: 100%;
     padding-top: 40px;
+    & .container {
+      min-width: 90%;
+    }
     & .carousel-caption {
       padding: 0;
       bottom: 0px;
