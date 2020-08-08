@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage, planetListYPosition, setPlanetListYPosition}) => {
     useEffect(() => {
         window.scrollTo(0, planetListYPosition)
-    }, [])
+    })
 
     if (!planets) return <Preloader/>
     else {

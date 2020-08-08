@@ -4,11 +4,12 @@ const SET_PLANET_LIST = "planets-reducer/SET-PLANET-LIST"
 const SET_PLANET_DESCRIPTION = "planets-reducer/SET-PLANET-DESCRIPTION"
 const SET_FILM_DATA = "planets-reducer/SET-FILM-DATA"
 const SET_RESIDENT_DATA = "planets-reducer/SET-RESIDENT-DATA"
+const CLEAR_PLANET_DESCRIPTION = "planets-reducer/CLEAR-PLANET-DESCRIPTION"
 const CLEAR_FILM_DATA = "planets-reducer/CLEAR-FILM-DATA"
 const CLEAR_RESIDENT_DATA = "planets-reducer/CLEAR-RESIDENT-DATA"
 const SET_IS_FETCHING = "planets-reducer/SET-IS-FETCHING"
 const SET_PLANET_PAGE = "planets-reducer/SET-PLANET-PAGE"
-const SET_PLANET_LIST_Y_POSITION = "SET-PLANET-LIST-Y-POSITION"
+const SET_PLANET_LIST_Y_POSITION = "planets-reducer/SET-PLANET-LIST-Y-POSITION"
 
 
 let initialState = {
@@ -44,6 +45,11 @@ const planetsReducer = (state = initialState, action) => {
                 ...state,
                 planet: action.data
             }
+        case CLEAR_PLANET_DESCRIPTION:
+            return {
+                ...state,
+                planet: null
+            }
         case SET_FILM_DATA:
             return {
                 ...state,
@@ -74,12 +80,11 @@ const planetsReducer = (state = initialState, action) => {
                 ...state,
                 planetPage: action.pageNumber
             }
-
         case SET_PLANET_LIST_Y_POSITION:
-        return {
-            ...state,
-            planetListYPosition: action.y
-        }
+            return {
+                ...state,
+                planetListYPosition: action.y
+            }
         default:
             return state
 
@@ -126,6 +131,9 @@ const setPlanetPage = (pageNumber) => {
 
 export const setPlanetListYPosition = (y) => {
     return {type: SET_PLANET_LIST_Y_POSITION, y}
+}
+export const clearPlanetDescription = () => {
+    return {type: CLEAR_PLANET_DESCRIPTION}
 }
 
 
@@ -176,12 +184,14 @@ export const getFilmData = (filmUrl) => async (dispatch) => {
     dispatch(setIsFetching(true))
     let response = await planetsApi.getFilmData(filmUrl)
     dispatch(setFilmData(response.data))
+    dispatch(setIsFetching(false))
 }
 
 export const getResidentData = (residentUrl) => async (dispatch) => {
     dispatch(setIsFetching(true))
     let response = await planetsApi.getResidentData(residentUrl)
     dispatch(setResidentData(response.data))
+    dispatch(setIsFetching(false))
 }
 
 export default planetsReducer

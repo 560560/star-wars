@@ -4,19 +4,18 @@ import Preloader from "../../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 
 
-const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDescription, parentPage, lastLocation}) => {
+const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDescription, lastLocation}) => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
     const pageID = (url) => (parseInt((url).replace(/[^\d]/g, '')))
-    if (!planet || isFetching) return <Preloader/>
+    if (!planet ) return <Preloader/>
     else {
         const planetImgSrc = (images.filter(item => item.name === planet.name))[0].imgSrc
 
         return (
             <div className="planetItemWrapper">
-                <Container  className="text-center planetItemContainer">
-
+                <Container  className={isFetching ? "foggy text-center planetItemContainer" : "text-center planetItemContainer"}>
                     <Row className="pt-5 mb-5  align-items-center">
                         <Col className="col-sm-5 text-lg-right text-md-right text-sm-center pl-sm-5 pb-sm-0 pb-3"><img src={planetImgSrc} alt={planet.name}/></Col>
                         <Col className="col-sm-6 col-12 text-lg-center text-md-center text-sm-left">
@@ -74,8 +73,6 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                     <Row className="mb-3">
                         <Col className="col-4 text-right descriptionTitle"><h5>Films:</h5></Col>
                         <Col className="col-8 text-left descriptionText">
-
-
                             {planet.films.length !== filmsDescription.length
                                 ? <h5>Loading...</h5>
                                 : <Row>{filmsDescription.map((film, i) =>
@@ -85,13 +82,10 @@ const PlanetItem = ({images, isFetching, planet, filmsDescription, residentsDesc
                                         </NavLink>
                                     </Col>)}
                                 </Row>}
-
                         </Col>
                     </Row>
-                    <Row className="">
                     {!lastLocation && <NavLink to={"/planets/1"} className="backToPlanetsButton mb-3 w-100">Back to planet list</NavLink>}
                     {lastLocation && <NavLink to={lastLocation.pathname} className="backToPlanetsButton mb-3 w-100">Go back</NavLink>}
-                    </Row>
                 </Container>
             </div>
         );

@@ -2,12 +2,13 @@ import {peopleApi} from "../api/api";
 
 const SET_PEOPLE_LIST = "people-reducer/SET-PEOPLE-LIST"
 const SET_PERSON_DESCRIPTION = "people-reducer/SET-PERSON-DESCRIPTION"
+const CLEAR_PERSON_DESCRIPTION = "people-reducer/CLEAR-PERSON-DESCRIPTION"
 const SET_FILM_DATA = "people-reducer/SET-FILM-DATA"
 const CLEAR_FILM_DATA = "people-reducer/CLEAR-FILM-DATA"
 const SET_IS_FETCHING = "people-reducer/SET-IS-FETCHING"
 const SET_HOME_PLANET = "people-reducer/SET-HOME-PLANET"
 const SET_PERSON_PAGE = "people-reducer/SET-PERSON-PAGE"
-const SET_PEOPLE_LIST_Y_POSITION = "SET-PEOPLE-LIST-Y-POSITION"
+const SET_PEOPLE_LIST_Y_POSITION = "people-reducer/SET-PEOPLE-LIST-Y-POSITION"
 
 
 let initialState = {
@@ -41,6 +42,11 @@ const peopleReducer = (state = initialState, action) => {
             return {
                 ...state,
                 person: action.data
+            }
+        case CLEAR_PERSON_DESCRIPTION:
+            return {
+                ...state,
+                person: null
             }
         case SET_FILM_DATA:
             return {
@@ -114,6 +120,10 @@ export const setPeopleListYPosition = (y) => {
     return {type: SET_PEOPLE_LIST_Y_POSITION, y}
 }
 
+export const clearPersonDescription = () => {
+    return {type: CLEAR_PERSON_DESCRIPTION}
+}
+
 
 /* THUNK CREATORS  */
 
@@ -155,10 +165,11 @@ export const getPersonDescription = (personId, lastLocationPath = "") => async (
 
 
 export const getFilmData = (filmUrl) => async (dispatch) => {
-    /*dispatch(setIsFetching(true))*/
+
     let response = await peopleApi.getFilmData(filmUrl)
     if (response.status === 200) {
         dispatch(setFilmData(response.data))
+        dispatch(setIsFetching(false))
     }
 }
 
@@ -166,6 +177,7 @@ export const getHomePlanet = (homePlanetUrl) => async (dispatch) => {
     let response = await peopleApi.getHomePlanet(homePlanetUrl)
     if (response.status === 200) {
         dispatch(setHomePlanet(response.data))
+        dispatch(setIsFetching(false))
     }
 
 }

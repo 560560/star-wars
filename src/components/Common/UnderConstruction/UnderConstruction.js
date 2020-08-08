@@ -1,12 +1,14 @@
 import React from 'react';
-import {Container, Row} from "react-bootstrap";
-import underConstruction from "../../../assets/images/underConstruction.jpg";
+import {Col, Container, Row} from "react-bootstrap";
+import underConstruction from "../../../assets/images/underConstruction.png";
 
 const UnderConstruction = (props) => {
     return (
-        <Container>
-            <Row className="pt-lg-5 mt-lg-5">
-                <img src={underConstruction} alt=""/>
+        <Container className="flex" >
+            <Row className="underConstruction align-items-center align-content-center">
+                <Col >
+                    <img src={underConstruction} className="mx-auto d-block" alt=""/>
+                </Col>
             </Row>
         </Container>
     );

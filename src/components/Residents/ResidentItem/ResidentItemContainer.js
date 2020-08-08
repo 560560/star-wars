@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import ResidentItem from "./ResidentItem";
 import {compose} from "redux";
 import {withLastLocation} from "react-router-last-location";
-import {getPersonDescription, clearFilmData, setIsFetching} from "../../../redux/people-reducer";
+import {getPersonDescription, clearFilmData, setIsFetching, clearPersonDescription} from "../../../redux/people-reducer";
 
 class ResidentItemContainer extends Component {
     componentDidMount() {
@@ -11,15 +11,14 @@ class ResidentItemContainer extends Component {
         this.props.getPersonDescription(this.props.match.params.residentId, lastPath)
 
     }
+componentDidUpdate(prevProps, prevState, snapshot) {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.person) {
-            this.props.setIsFetching(false)
-        }
-    }
+}
+
 
     componentWillUnmount() {
         this.props.clearFilmData()
+        this.props.clearPersonDescription()
     }
 
     render() {
@@ -42,5 +41,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     withLastLocation,
-    connect(mapStateToProps, {getPersonDescription, clearFilmData, setIsFetching}))
+    connect(mapStateToProps, {getPersonDescription, clearFilmData, setIsFetching, clearPersonDescription}))
 (ResidentItemContainer);
