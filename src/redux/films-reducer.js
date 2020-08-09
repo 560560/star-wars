@@ -55,7 +55,7 @@ const filmsReducer = (state = initialState, action) => {
         case SET_CHOSEN_FILM:
             return {
                 ...state,
-                chosenFilm: action.chosenFilm
+                chosenFilm: Number(action.chosenFilm)
             }
 
         case SET_PLANET_DATA:

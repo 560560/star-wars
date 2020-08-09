@@ -1,7 +1,7 @@
 import * as axios from "axios";
 
 let instance = axios.create({
-    baseURL: "https://swapi.dev/api/",
+    baseURL: "http://swapi.dev/api/",
 
 });
 
@@ -14,11 +14,10 @@ export const planetsApi = {
         return instance.get(`planets/${planetId}`)
     },
     getFilmData(filmUrl) {
-
-        return instance.get(`${filmUrl.replace("http:/", "https:/")}`)
+        return instance.get(filmUrl)
     },
     getResidentData(residentUrl) {
-        return instance.get(`${residentUrl.replace("http:/", "https:/")}`)
+        return instance.get(residentUrl)
     }
 }
 
@@ -33,7 +32,7 @@ export const filmsApi = {
         return instance.get("films/")
     },
     getDescriptionData (url) {
-        return instance(url.replace("http:/", "https:/"))
+        return instance(url)
     }
 }
 
@@ -45,20 +44,20 @@ export const peopleApi = {
         return instance.get(`people/${personId}`)
     },
     getFilmData(filmUrl) {
-        return instance.get(`${filmUrl.replace("http:/", "https:/")}`)
+        return instance.get(filmUrl)
     },
 
     getHomePlanet(homePlanetUrl) {
-        return instance.get(`${homePlanetUrl.replace("http:/", "https:/")}`)
+        return instance.get(homePlanetUrl)
     },
 
     getStarshipData(starshipUrl) {
-        return instance.get(`${starshipUrl.replace("http:/", "https:/")}`)
+        return instance.get(starshipUrl)
     },
     getVehiclesData(vehicleUrl) {
-        return instance.get(`${vehicleUrl.replace("http:/", "https:/")}`)
+        return instance.get(vehicleUrl)
     },
     getSpecieData(specieUrl) {
-        return instance.get(`${specieUrl.replace("http:/", "https:/")}`)
+        return instance.get(specieUrl)
     }
 }

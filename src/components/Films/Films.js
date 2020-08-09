@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Carousel, Col, Container, Row} from "react-bootstrap";
 import Preloader from "../Common/Preloader/preloader";
 import {useHistory, NavLink} from "react-router-dom";
@@ -7,14 +7,19 @@ import {useHistory, NavLink} from "react-router-dom";
 const Films = ({
                    films, images, isFetching, chosenFilm, planetsDescription,
                    charactersDescription, starshipsDescription, vehiclesDescription,
-                   speciesDescription
+                   speciesDescription, setChosenFilm
                }) => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const history = useHistory()
     const screenHeight = window.innerHeight
     const [index, setIndex] = useState(0);
     const [internalRouting, setInternalRouting] = useState(false)
 
     const handleSelect = (selectedIndex, e) => {
+        setChosenFilm(selectedIndex+1)
         setIndex(selectedIndex);
         history.push("/films/" + (selectedIndex + 1))
         setInternalRouting(true)
