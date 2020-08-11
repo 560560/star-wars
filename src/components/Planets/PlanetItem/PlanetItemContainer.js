@@ -4,6 +4,7 @@ import PlanetItem from "./PlanetItem";
 import {clearFilmData, clearPlanetDescription, clearResidentData, getPlanetDescription, setIsFetching} from "../../../redux/planets-reducer";
 import {compose} from "redux";
 import {withLastLocation} from "react-router-last-location";
+import {withRouter} from "react-router-dom";
 
 class PlanetItemContainer extends Component {
     componentDidMount() {
@@ -11,18 +12,19 @@ class PlanetItemContainer extends Component {
         this.props.getPlanetDescription(this.props.match.params.planetId, lastPath)
 
     }
-
-
     componentWillUnmount() {
         this.props.clearPlanetDescription()
         this.props.clearFilmData()
         this.props.clearResidentData()
     }
 
+    handleBack = () => {
+        this.props.history.goBack()
+    }
     render() {
 
         return (
-            <PlanetItem {...this.props}/>
+            <PlanetItem {...this.props} handleBack={this.handleBack}/>
         );
     }
 }
@@ -39,5 +41,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     withLastLocation,
+    withRouter,
     connect(mapStateToProps, {getPlanetDescription, clearFilmData, clearResidentData, setIsFetching, clearPlanetDescription}))
 (PlanetItemContainer);

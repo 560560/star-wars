@@ -4,6 +4,7 @@ import ResidentItem from "./ResidentItem";
 import {compose} from "redux";
 import {withLastLocation} from "react-router-last-location";
 import {getPersonDescription, clearFilmData, setIsFetching, clearPersonDescription} from "../../../redux/people-reducer";
+import {withRouter} from "react-router-dom";
 
 class ResidentItemContainer extends Component {
     componentDidMount() {
@@ -11,20 +12,20 @@ class ResidentItemContainer extends Component {
         this.props.getPersonDescription(this.props.match.params.residentId, lastPath)
 
     }
-componentDidUpdate(prevProps, prevState, snapshot) {
-
-}
-
 
     componentWillUnmount() {
         this.props.clearFilmData()
         this.props.clearPersonDescription()
     }
 
+    handleBack = () => {
+        this.props.history.goBack()
+    }
+
     render() {
 
         return (
-            <ResidentItem {...this.props}/>
+            <ResidentItem {...this.props} handleBack={this.handleBack}/>
         );
     }
 }
@@ -41,5 +42,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     withLastLocation,
+    withRouter,
     connect(mapStateToProps, {getPersonDescription, clearFilmData, setIsFetching, clearPersonDescription}))
 (ResidentItemContainer);

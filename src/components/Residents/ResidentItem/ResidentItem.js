@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import Preloader from "../../Common/Preloader/preloader";
 import {NavLink} from "react-router-dom";
 import emptyImg from "../../../assets/images/empty_img.png"
 
 
-const ResidentItem = ({isFetching, person, filmsDescription, lastLocation, homePlanet}) => {
+const ResidentItem = ({isFetching, person, filmsDescription, lastLocation, homePlanet, handleBack}) => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -81,7 +81,10 @@ const ResidentItem = ({isFetching, person, filmsDescription, lastLocation, homeP
                         </Col>
                     </Row>
                     {!lastLocation && <NavLink to={"/people/1"} className="backToPeopleButton mb-3 w-100">Back to people list</NavLink>}
-                    {lastLocation && <NavLink to={lastLocation.pathname} className="backToPeopleButton mb-3 w-100">Go back</NavLink>}
+                    {lastLocation &&
+                    <Button onClick={handleBack} className="backToPeopleButton mb-3 w-100">{lastLocation.pathname.includes("/people/")
+                        ? "Back to people list"
+                        : "Go back"}</Button>}
                 </Container>
             </div>
         );
