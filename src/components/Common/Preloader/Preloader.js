@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import preloader from "../../../assets/images/preloader.gif"
 
-const Preloader = (props) => {
+const Preloader = () => {
 
     const screenHeight = window.innerHeight
     const preloaderHeight = 200
