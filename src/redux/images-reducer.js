@@ -1,4 +1,4 @@
-let basicPath = "https://starwars.reactlearning.ru/img/"
+let basicPath = "https://starwars.gacv.ru/img/"
 
 let initialState = {
     planets: [

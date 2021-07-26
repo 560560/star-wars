@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, Container, Row} from "react-bootstrap";
-import Preloader from "../Common/Preloader/preloader";
+import Preloader from "../Common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 
 const Home = ({images, sections}) => {

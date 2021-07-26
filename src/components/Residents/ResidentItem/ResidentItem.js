@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
-import Preloader from "../../Common/Preloader/preloader";
+import Preloader from "../../Common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import emptyImg from "../../../assets/images/empty_img.png"
 

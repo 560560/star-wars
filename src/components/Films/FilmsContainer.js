@@ -18,11 +18,6 @@ class FilmsContainer extends Component {
 
     }
 
-componentDidUpdate(prevProps, prevState, snapshot) {
-        //console.log(this.props.charactersDescription[0])
-}
-
-
     render() {
         return (
             <Films {...this.props} chosenFilm={Number(this.props.chosenFilm) - 1}/>

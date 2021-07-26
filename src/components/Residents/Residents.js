@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
-import Preloader from "../Common/Preloader/preloader";
+import Preloader from "../Common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import ResidentListItem from "./ResidentListItem/ResidentListItem";
 
 
-const Residents = ({isFetching, images, people, prevPage, nextPage, currentPage, setPeopleListYPosition, peopleListYPosition}) => {
+const Residents = ({isFetching, people, prevPage, nextPage, currentPage, setPeopleListYPosition, peopleListYPosition}) => {
     useEffect(() => {
         window.scrollTo(0, peopleListYPosition)
     })

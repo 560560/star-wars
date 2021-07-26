@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import PlanetListItem from "./PlanetListItem/PlanetListItem";
-import Preloader from "../Common/Preloader/preloader";
+import Preloader from "../Common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 
 const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage, planetListYPosition, setPlanetListYPosition}) => {
@@ -11,9 +11,9 @@ const Planets = ({isFetching, images, planets, prevPage, nextPage, currentPage, 
 
     if (!planets) return <Preloader/>
     else {
-
         const pageID = (url) => {
-            if (!url) return
+            if (!url)
+                return
             else {
                 return parseInt((url).replace(/[^\d]/g, ''))
             }

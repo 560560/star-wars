@@ -1,7 +1,7 @@
 import * as axios from "axios";
 
 let instance = axios.create({
-    baseURL: "http://swapi.dev/api/",
+    baseURL: "https://swapi.dev/api/",
 
 });
 
