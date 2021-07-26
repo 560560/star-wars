@@ -172,9 +172,32 @@ a {
   }
 }
 
+.carousel-wrapper{
+  position: relative;
+  z-index: 1;
+}
+
 .carousel {
   width: 70%;
+  & .carousel-indicators {
+    margin: 0 0 16px 0;
+    & li {
+      border: 1px solid #93c3fd;
+      border-radius: 10px;
+      background: radial-gradient(#ffffff, #91CAF4);
+      margin: 0 10px;
+      width: 10%;
+      height: 10px;
+      &.active {
+        -webkit-box-shadow: 0px 0px 9px 0px rgba(51, 138, 252, 0.97);
+        -moz-box-shadow: 0px 0px 9px 0px rgba(51, 138, 252, 0.97);
+        box-shadow: 0px 0px 9px 0px rgba(51, 138, 252, 0.97);
+      }
+    }
+  }
 }
+
+
 
 
 .paginator a {

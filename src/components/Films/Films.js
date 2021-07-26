@@ -40,7 +40,7 @@ const Films = ({
 
       <div className="filmsWrapper" style={{minHeight: `${screenHeight}px`}}>
         <Container>
-          <Row className="justify-content-center">
+          <Row className="justify-content-center carousel-wrapper">
             <Carousel activeIndex={index} onSelect={handleSelect} interval={null} className="pb-5">
               {images.map((item, i) =>
                 <Carousel.Item key={i}>
