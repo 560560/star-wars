@@ -23,7 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 /.idea/misc.xml
 /.idea/modules.xml
-/src/assets/images/preloaderBig.gif
 /.idea/vcs.xml
 /.idea/watcherTasks.xml
 /.idea/inspectionProfiles/Project_Default.xml
+/.idea/prettier.xml
+/.idea/star-wars.iml

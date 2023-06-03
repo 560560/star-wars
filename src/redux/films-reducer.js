@@ -1,334 +1,288 @@
-import {filmsApi} from "../api/api";
+import { filmsApi } from '../api/api';
+import { setPeopleSource } from './people-reducer';
+import { has } from 'lodash';
+import { setPlanetsSource } from './planets-reducer';
+import { setStarshipsSource } from './starships-reducer';
+import { setVehiclesSource } from './vehicles-reducer';
+import { setSpeciesSource } from './species-reducer';
 
+const SET_FILMS_LIST = 'films-reducer/SET-FILMS-LIST';
+const SET_IS_FILMS_FETCHING = 'films-reducer/SET-IS-FILMS-FETCHING';
+const SET_IS_FILM_CHARACTERS_FETCHING = 'films-reducer/SET-IS-FILM-CHARACTERS-FETCHING';
+const SET_IS_FILM_PLANETS_FETCHING = 'films-reducer/SET-IS-FILM-PLANETS-FETCHING';
+const SET_IS_FILM_STARSHIPS_FETCHING = 'films-reducer/SET-IS-FILM-STARSHIPS-FETCHING';
+const SET_IS_FILM_SPECIES_FETCHING = 'films-reducer/SET-IS-FILM-SPECIES-FETCHING';
+const SET_IS_FILM_VEHICLES_FETCHING = 'films-reducer/SET-IS-FILM-VEHICLES-FETCHING';
+const SET_CHOSEN_FILM = 'films-reducer/SET_CHOSEN_FILM';
+const CLEAR_ITERATION = 'films-reducer/CLEAR-ITERATION';
+const SET_ERROR = 'films-reducer/SET-ERROR';
 
-const SET_FILMS_LIST = "films-reducer/SET-FILMS-LIST"
-const CLEAR_FILMS_LIST = "films-reducer/CLEAR-FILMS-LIST"
-const SET_IS_FETCHING = "films-reducer/SET-IS-FETCHING"
-const SET_CHOSEN_FILM = "films-reducer/SET_CHOSEN_FILM"
-const SET_VEHICLES_DATA = "films-reducer/SET-VEHICLES-DATA"
-const CLEAR_VEHICLES_DATA = "films-reducer/CLEAR-VEHICLES-DATA"
-const SET_CHARACTERS_DATA = "films-reducer/SET-CHARACTERS-DATA"
-const CLEAR_CHARACTERS_DATA = "films-reducer/CLEAR-CHARACTERS-DATA"
-const SET_PLANET_DATA = "films-reducer/SET-PLANET-DATA"
-const CLEAR_PLANET_DATA = "films-reducer/CLEAR-PLANET-DATA"
-const SET_STARSHIPS_DATA = "films-reducer/SET-STARSHIPS-DATA"
-const CLEAR_STARSHIPS_DATA = "films-reducer/CLEAR-STARSHIPS-DATA"
-const SET_SPECIES_DATA = "films-reducer/SET-SPECIES-DATA"
-const CLEAR_SPECIES_DATA = "films-reducer/CLEAR-SPECIES-DATA"
-const SET_DESCRIPTIONS_STRUCTURE = "films-reducer/SET-DESCRIPTIONS-STRUCTURE"
-const CLEAR_ITERATION = "films-reducer/CLEAR-ITERATION"
-
-
-let initialState = {
-    films: null,
-    isFetching: false,
-    chosenFilm: null,
-    selectedFilmPlanetsDescription: [],
-    selectedFilmCharactersDescription: [],
-    selectedFilmStarshipsDescription: [],
-    selectedFilmVehiclesDescription: [],
-    selectedFilmSpeciesDescription: [],
-    gettingPlanetIterations: 0
-
-
-}
+const initialState = {
+  films: null,
+  isFilmsFetching: false,
+  isFilmPlanetsFetching: false,
+  isFilmCharactersFetching: false,
+  isFilmVehiclesFetching: false,
+  isFilmStarshipsFetching: false,
+  isFilmSpeciesFetching: false,
+  chosenFilm: null,
+  gettingPlanetIterations: 0,
+  errors: {},
+};
 
 const filmsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [action.data.chosenFilm]: {
+            ...state.errors[action.data.chosenFilm],
+            [action.data.section]: action.data.isLoadingError,
+          },
+        },
+      };
+    case SET_FILMS_LIST:
+      return {
+        ...state,
+        films: action.data,
+      };
+    case SET_IS_FILMS_FETCHING:
+      return {
+        ...state,
+        isFilmsFetching: action.state,
+      };
+    case SET_IS_FILM_CHARACTERS_FETCHING:
+      return {
+        ...state,
+        isFilmCharactersFetching: action.state,
+      };
+    case SET_IS_FILM_PLANETS_FETCHING:
+      return {
+        ...state,
+        isFilmPlanetsFetching: action.state,
+      };
+    case SET_IS_FILM_VEHICLES_FETCHING:
+      return {
+        ...state,
+        isFilmVehiclesFetching: action.state,
+      };
+    case SET_IS_FILM_STARSHIPS_FETCHING:
+      return {
+        ...state,
+        isFilmStarshipsFetching: action.state,
+      };
+    case SET_IS_FILM_SPECIES_FETCHING:
+      return {
+        ...state,
+        isFilmSpeciesFetching: action.state,
+      };
+    case SET_CHOSEN_FILM:
+      return {
+        ...state,
+        chosenFilm: Number(action.chosenFilm),
+      };
 
-    switch (action.type) {
-        case SET_FILMS_LIST:
+    case CLEAR_ITERATION:
+      return {
+        ...state,
+        [action.nameOfCounter]: 0,
+      };
 
-            return {
-                ...state,
-                films: action.data
-            }
-        case CLEAR_FILMS_LIST:
-            return {
-                ...state,
-                films: null
-            }
-        case SET_IS_FETCHING:
-            return {
-                ...state,
-                isFetching: action.state
-            }
-        case SET_CHOSEN_FILM:
-            return {
-                ...state,
-                chosenFilm: Number(action.chosenFilm)
-            }
-
-        case SET_PLANET_DATA:
-            return {
-                ...state,
-                ...state.selectedFilmPlanetsDescription[action.filmIndex].push(action.data),
-                gettingPlanetIterations: state.gettingPlanetIterations + 1
-            }
-
-        case CLEAR_PLANET_DATA:
-            return {
-                ...state,
-                selectedFilmPlanetsDescription: []
-            }
-
-        case SET_CHARACTERS_DATA:
-            let charactersArray = [...state.selectedFilmCharactersDescription]
-            charactersArray.map((subArray, i) => {
-                if (action.filmIndex === i) {
-                    return subArray.push(action.data)
-                } else {
-                    return subArray
-                }
-            })
-            return {
-                ...state,
-                selectedFilmCharactersDescription: charactersArray
-
-            }
-
-        case
-        CLEAR_CHARACTERS_DATA:
-            return {
-                ...state,
-                selectedFilmCharactersDescription: []
-            }
-
-        case
-        SET_STARSHIPS_DATA:
-            let starshipsArray = [...state.selectedFilmStarshipsDescription]
-            starshipsArray.map((subArray, i) => {
-                if (action.filmIndex === i) {
-                    return subArray.push(action.data)
-                } else {
-                    return subArray
-                }
-            })
-            return {
-                ...state,
-                selectedFilmStarshipsDescription: starshipsArray
-
-            }
-
-        case
-        CLEAR_STARSHIPS_DATA:
-            return {
-                ...state,
-                selectedFilmStarshipsDescription: []
-            }
-
-        case
-        SET_SPECIES_DATA:
-            let speciesArray = [...state.selectedFilmSpeciesDescription]
-            speciesArray.map((subArray, i) => {
-                if (action.filmIndex === i) {
-                    return subArray.push(action.data)
-                } else {
-                    return subArray
-                }
-            })
-            return {
-                ...state,
-                selectedFilmSpeciesDescription: speciesArray
-            }
-
-        case
-        CLEAR_SPECIES_DATA:
-            return {
-                ...state,
-                selectedFilmSpeciesDescription: []
-            }
-
-        case
-        SET_VEHICLES_DATA:
-            let vehiclesArray = [...state.selectedFilmVehiclesDescription]
-            vehiclesArray.map((subArray, i) => {
-                if (action.filmIndex === i) {
-                    return subArray.push(action.data)
-                } else {
-                    return subArray
-                }
-            })
-            return {
-                ...state,
-                selectedFilmVehiclesDescription: vehiclesArray
-
-            }
-
-        case
-        CLEAR_VEHICLES_DATA:
-            return {
-                ...state,
-                selectedFilmVehiclesDescription: []
-            }
-
-        case
-        SET_DESCRIPTIONS_STRUCTURE:
-            return {
-                ...state,
-                selectedFilmPlanetsDescription: [...state.selectedFilmPlanetsDescription, []],
-                selectedFilmCharactersDescription: [...state.selectedFilmCharactersDescription, []],
-                selectedFilmStarshipsDescription: [...state.selectedFilmStarshipsDescription, []],
-                selectedFilmVehiclesDescription: [...state.selectedFilmVehiclesDescription, []],
-                selectedFilmSpeciesDescription: [...state.selectedFilmSpeciesDescription, []]
-            }
-
-        case
-        CLEAR_ITERATION:
-            return {
-                ...state,
-                [action.nameOfCounter]: 0
-            }
-
-        default:
-            return state
-
-    }
-
-}
+    default:
+      return state;
+  }
+};
 
 /* ACTION CREATORS  */
+
+const setError = (data) => {
+  return { type: SET_ERROR, data };
+};
+
 const setFilmsList = (data) => {
-    return {type: SET_FILMS_LIST, data}
-}
+  return { type: SET_FILMS_LIST, data };
+};
 
-export const clearFilmsList = () => {
-    return {type: CLEAR_FILMS_LIST}
-}
+export const setIsFilmsFetching = (state) => {
+  return { type: SET_IS_FILMS_FETCHING, state };
+};
 
+export const setIsFilmPlanetsFetching = (state) => {
+  return { type: SET_IS_FILM_PLANETS_FETCHING, state };
+};
 
-export const setIsFetching = (state) => {
-    return {type: SET_IS_FETCHING, state}
-}
+export const setIsFilmCharactersFetching = (state) => {
+  return { type: SET_IS_FILM_CHARACTERS_FETCHING, state };
+};
+
+export const setIsFilmVehiclesFetching = (state) => {
+  return { type: SET_IS_FILM_VEHICLES_FETCHING, state };
+};
+
+export const setIsFilmStarshipsFetching = (state) => {
+  return { type: SET_IS_FILM_STARSHIPS_FETCHING, state };
+};
+
+export const setIsFilmSpeciesFetching = (state) => {
+  return { type: SET_IS_FILM_SPECIES_FETCHING, state };
+};
 
 export const setChosenFilm = (chosenFilm) => {
-    return {type: SET_CHOSEN_FILM, chosenFilm}
-}
-
-const setPlanetData = (data = "", filmIndex) => {
-    return {type: SET_PLANET_DATA, data, filmIndex}
-}
-
-export const clearPlanetData = () => {
-    return {type: CLEAR_PLANET_DATA}
-}
-
-const setCharactersData = (data = "", filmIndex) => {
-    return {type: SET_CHARACTERS_DATA, data, filmIndex}
-}
-
-export const clearCharactersData = () => {
-    return {type: CLEAR_CHARACTERS_DATA}
-
-}
-
-
-const setStarshipsData = (data = "", filmIndex) => {
-    return {type: SET_STARSHIPS_DATA, data, filmIndex}
-}
-
-export const clearStarshipsData = () => {
-    return {type: CLEAR_STARSHIPS_DATA}
-}
-
-
-const setVehiclesData = (data = "", filmIndex) => {
-    return {type: SET_VEHICLES_DATA, data, filmIndex}
-}
-
-export const clearVehiclesData = () => {
-    return {type: CLEAR_VEHICLES_DATA}
-}
-
-const setSpeciesData = (data = "", filmIndex) => {
-    return {type: SET_SPECIES_DATA, data, filmIndex}
-}
-
-export const clearSpeciesData = () => {
-    return {type: CLEAR_SPECIES_DATA}
-}
-
-const setDescriptionStructure = (filmIndex) => {
-    return {type: SET_DESCRIPTIONS_STRUCTURE, filmIndex}
-}
-
-const clearIterations = (nameOfCounter) => {
-    return {type: CLEAR_ITERATION, nameOfCounter}
-}
-
+  return { type: SET_CHOSEN_FILM, chosenFilm };
+};
 
 /* THUNK CREATORS  */
-export const getFilmsList = () => async (dispatch, getState) => {
-    dispatch(setIsFetching(true))
-    let response = await filmsApi.getFilms()
 
-    if (response.status === 200) {
-        dispatch(setFilmsList(response.data.results))
-
-        getState().filmsPage.films.forEach((film, i) => {
-            dispatch(setDescriptionStructure(i))
-        })
-        dispatch(setIsFetching(false))
-
-        getState().filmsPage.films.forEach((film, i) => {
-
-            film.planets.forEach(url => {
-                dispatch(getPlanetData(url, i))
-            })
-            film.characters.forEach(url => {
-                dispatch(getCharactersData(url, i))
-            })
-            film.starships.forEach(url => {
-                dispatch(getStarshipsData(url, i))
-            })
-            film.vehicles.forEach(url => {
-                dispatch(getVehiclesData(url, i))
-            })
-            film.species.forEach(url => {
-                dispatch(getSpeciesData(url, i))
-            })
-
-        })
-    }
-
-
-}
-
-export const getPlanetData = (planetUrl, filmIndex) => async (dispatch, getState) => {
-    let urlsCount = 0;
-    getState().filmsPage.films.forEach(film => {
-        urlsCount += film.planets.length
+export const getCharacters = () => async (dispatch, getState) => {
+  const isFetching = getState().filmsPage.isFilmCharactersFetching;
+  if (isFetching) {
+    return null;
+  }
+  const chosenFilm = getState().filmsPage.chosenFilm;
+  const charactersPromises = getState().filmsPage.films[chosenFilm].characters.map((url) =>
+    dispatch(getCharacterData(url))
+  );
+  dispatch(setIsFilmCharactersFetching(true));
+  Promise.all(charactersPromises)
+    .catch(() => {
+      dispatch(setError({ chosenFilm, section: 'characters', isLoadingError: true }));
     })
-    let response = await filmsApi.getDescriptionData(planetUrl)
-    dispatch(setPlanetData(response.data, filmIndex))
-    if (urlsCount === getState().filmsPage.gettingPlanetIterations) {
-        dispatch(setIsFetching(false))
-        dispatch(clearIterations("gettingPlanetIterations"))
+    .finally(() => dispatch(setIsFilmCharactersFetching(false)));
+};
+
+export const getStarships = () => async (dispatch, getState) => {
+  const isFetching = getState().filmsPage.isFilmStarshipsFetching;
+  if (isFetching) {
+    return null;
+  }
+  const chosenFilm = getState().filmsPage.chosenFilm;
+  const starshipsPromises = getState().filmsPage.films[chosenFilm].starships.map((url) =>
+    dispatch(getStarshipData(url))
+  );
+  dispatch(setIsFilmStarshipsFetching(true));
+  Promise.all(starshipsPromises)
+    .catch(() => {
+      dispatch(setError({ chosenFilm, section: 'starships', isLoadingError: true }));
+    })
+    .finally(() => dispatch(setIsFilmStarshipsFetching(false)));
+};
+
+export const getPlanets = () => async (dispatch, getState) => {
+  const isFetching = getState().filmsPage.isFilmPlanetsFetching;
+  if (isFetching) {
+    return null;
+  }
+  const chosenFilm = getState().filmsPage.chosenFilm;
+  const planetsPromises = getState().filmsPage.films[chosenFilm].planets.map((url) => dispatch(getPlanetData(url)));
+  dispatch(setIsFilmPlanetsFetching(true));
+
+  Promise.all(planetsPromises)
+    .catch(() => {
+      dispatch(setError({ chosenFilm, section: 'planets', isLoadingError: true }));
+    })
+    .finally(() => dispatch(setIsFilmPlanetsFetching(false)));
+};
+
+export const getSpecies = () => async (dispatch, getState) => {
+  const isFetching = getState().filmsPage.isFilmSpeciesFetching;
+  if (isFetching) {
+    return null;
+  }
+  const chosenFilm = getState().filmsPage.chosenFilm;
+  const speciesPromises = getState().filmsPage.films[chosenFilm].species.map((url) => dispatch(getSpecieData(url)));
+  dispatch(setIsFilmSpeciesFetching(true));
+  Promise.all(speciesPromises)
+    .catch(() => {
+      dispatch(setError({ chosenFilm, section: 'species', isLoadingError: true }));
+    })
+    .finally(() => dispatch(setIsFilmSpeciesFetching(false)));
+};
+
+export const getVehicles = () => async (dispatch, getState) => {
+  const isFetching = getState().filmsPage.isFilmVehiclesFetching;
+  if (isFetching) {
+    return null;
+  }
+
+  const chosenFilm = getState().filmsPage.chosenFilm;
+  const vehiclesPromises = getState().filmsPage.films[chosenFilm].vehicles.map((url) => dispatch(getVehicleData(url)));
+  dispatch(setIsFilmVehiclesFetching(true));
+  Promise.all(vehiclesPromises)
+    .catch(() => {
+      dispatch(setError({ chosenFilm, section: 'vehicles', isLoadingError: true }));
+    })
+    .finally(() => dispatch(setIsFilmVehiclesFetching(false)));
+};
+
+export const getFilmsList = () => async (dispatch, getState) => {
+  try {
+    if (!getState().filmsPage.films) {
+      dispatch(setIsFilmsFetching(true));
+      const response = await filmsApi.getFilms();
+
+      if (response.status === 200) {
+        dispatch(setFilmsList(response.data.results));
+
+        dispatch(setIsFilmsFetching(false));
+      }
     }
-}
 
-export const getCharactersData = (characterUrl, filmIndex) => async (dispatch, getState) => {
-    let response = await filmsApi.getDescriptionData(characterUrl)
-    dispatch(setCharactersData(response.data, filmIndex))
+    dispatch(getCharacters());
+    dispatch(getPlanets());
+    dispatch(getStarships());
+    dispatch(getSpecies());
+    dispatch(getVehicles());
+  } catch (e) {
+    dispatch(setIsFilmsFetching(false));
+    dispatch(setIsFilmCharactersFetching(false));
+    dispatch(setIsFilmPlanetsFetching(false));
+    dispatch(setIsFilmVehiclesFetching(false));
+    dispatch(setIsFilmStarshipsFetching(false));
+    dispatch(setIsFilmSpeciesFetching(false));
+    console.error('Some error occurred = ', e.message);
+  }
+};
 
-}
+export const getPlanetData = (planetUrl) => async (dispatch, getState) => {
+  if (has(getState().planetsPage.planetsSource, planetUrl)) {
+    return;
+  }
+  const response = await filmsApi.getDescriptionData(planetUrl);
+  dispatch(setPlanetsSource({ [planetUrl]: response.data }));
+};
 
+export const getCharacterData = (characterUrl) => async (dispatch, getState) => {
+  if (has(getState().peoplePage.peopleSource, characterUrl)) {
+    return;
+  }
+  const response = await filmsApi.getDescriptionData(characterUrl);
+  dispatch(setPeopleSource({ [characterUrl]: response.data }));
+};
 
-export const getStarshipsData = (starshipsUrl, filmIndex) => async (dispatch) => {
-    let response = await filmsApi.getDescriptionData(starshipsUrl)
-    dispatch(setStarshipsData(response.data, filmIndex))
+export const getStarshipData = (starshipUrl) => async (dispatch, getState) => {
+  if (has(getState().starshipsPage.starshipsSource, starshipUrl)) {
+    return;
+  }
+  const response = await filmsApi.getDescriptionData(starshipUrl);
+  dispatch(setStarshipsSource({ [starshipUrl]: response.data }));
+};
 
-}
+export const getVehicleData = (vehiclesUrl) => async (dispatch, getState) => {
+  if (has(getState().vehiclesPage.vehiclesSource, vehiclesUrl)) {
+    return;
+  }
+  const response = await filmsApi.getDescriptionData(vehiclesUrl);
+  dispatch(setVehiclesSource({ [vehiclesUrl]: response.data }));
+};
 
-export const getVehiclesData = (vehiclesUrl, filmIndex) => async (dispatch) => {
-    let response = await filmsApi.getDescriptionData(vehiclesUrl)
-    dispatch(setVehiclesData(response.data, filmIndex))
+export const getSpecieData = (speciesUrl) => async (dispatch, getState) => {
+  if (has(getState().speciesPage.speciesSource, speciesUrl)) {
+    return;
+  }
+  const response = await filmsApi.getDescriptionData(speciesUrl);
+  dispatch(setSpeciesSource({ [speciesUrl]: response.data }));
+};
 
-}
-export const getSpeciesData = (speciesUrl, filmIndex) => async (dispatch) => {
-    let response = await filmsApi.getDescriptionData(speciesUrl)
-    dispatch(setSpeciesData(response.data, filmIndex))
-
-}
-
-
-export default filmsReducer
+export default filmsReducer;
