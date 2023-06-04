@@ -177,7 +177,7 @@ export const Films = React.memo(() => {
             {isFilmPlanetsFetching ? (
               <ContentListLoader />
             ) : (
-              <List items={planets} to={'planets'} isLoadingError={loadingErrors.planets} onReload={getPlanets} />
+              <List items={planets} to={'planet'} isLoadingError={loadingErrors.planets} onReload={getPlanets} />
             )}
           </Col>
         </Row>

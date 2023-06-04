@@ -1,5 +1,4 @@
-//const basicPath = 'https://starwars.gacv.ru/img/';
-const basicPath = 'http://localhost:4200/img/';
+const basicPath = 'https://starwars.gacv.ru/img/';
 
 const initialState = {
   planets: [
