@@ -1,4 +1,4 @@
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
 @font-face {
   font-family: 'Starjedi';
@@ -26,8 +26,11 @@
   font-size: 1rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 }
 
 html {
@@ -36,11 +39,11 @@ html {
 }
 
 h1 {
-  font-family: "Starjedi", sans-serif;
+  font-family: 'Starjedi', sans-serif;
 }
 
 h2 {
-  font-family: "AurebeshDroid", sans-serif;
+  font-family: 'AurebeshDroid', sans-serif;
 }
 
 h5 {
@@ -56,15 +59,14 @@ a {
   }
 }
 
-.appWrapper{
+.appWrapper {
   height: 100%;
   min-height: 100vh;
   display: grid;
   grid-template-rows: 56px 1fr 40px;
-
 }
 .headerLogo {
-  font-family: "Starjedi", sans-serif;
+  font-family: 'Starjedi', sans-serif;
   padding-left: 40px;
 }
 
@@ -89,14 +91,14 @@ a {
   -webkit-filter: blur(3px);
   -moz-filter: blur(3px);
   filter: blur(3px);
-
 }
 
-.planetCard, .residentCard {
-  border: 3px solid rgba(255, 255, 255, 0.0);
+.planetCard,
+.residentCard {
+  border: 3px solid rgba(255, 255, 255, 0);
   border-radius: 5px;
   transition: 0.5s;
-  background-color: rgba(255, 255, 255, 0.0);
+  background-color: rgba(255, 255, 255, 0);
 
   &:hover {
     border: 3px solid rgba(23, 162, 184, 0.6);
@@ -110,31 +112,31 @@ a {
   }
 }
 
-.planetCard, .residentCard {
+.planetCard,
+.residentCard {
   & img {
     width: 150px;
     transition: 0.6s;
   }
 }
 
-
 .sectionCard {
-  background-color: rgba(255, 255, 255, 0.0);
+  background-color: rgba(255, 255, 255, 0);
   border: none;
-
 }
 
 .sectionCard img {
   height: 150px;
   width: 150px;
-
 }
 
 .card-title {
-  font-family: "Starjedi", sans-serif;
+  font-family: 'Starjedi', sans-serif;
 }
 
-.descriptionButton, .backToPlanetsButton, .backToPeopleButton {
+.descriptionButton,
+.backToPlanetsButton,
+.backToPeopleButton {
   @include linkStyle();
 
   &:hover {
@@ -145,7 +147,7 @@ a {
 }
 
 .sections {
-  background-color: rgba(255, 255, 255, 0.0);
+  background-color: rgba(255, 255, 255, 0);
   border: 2px solid #17a2b8;
   color: black;
   transition: 0.4s;
@@ -157,8 +159,13 @@ a {
   }
 }
 
-.planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper {
-  background: url("../assets/images/bg.jpg") no-repeat center center fixed, rgba(255, 255, 255, 0.8);
+.planetsListWrapper,
+.planetItemWrapper,
+.homeWrapper,
+.filmsWrapper {
+  background:
+    url('../assets/images/bg.jpg') no-repeat center center fixed,
+    rgba(255, 255, 255, 0.8);
   background-blend-mode: color;
   -moz-background-size: 100%;
   -webkit-background-size: 100%;
@@ -175,7 +182,7 @@ a {
   }
 }
 
-.carousel-wrapper{
+.carousel-wrapper {
   position: relative;
   z-index: 1;
 }
@@ -187,7 +194,7 @@ a {
     & li {
       border: 1px solid #93c3fd;
       border-radius: 10px;
-      background: radial-gradient(#ffffff, #91CAF4);
+      background: radial-gradient(#ffffff, #91caf4);
       margin: 0 10px;
       width: 10%;
       height: 10px;
@@ -199,9 +206,6 @@ a {
     }
   }
 }
-
-
-
 
 .paginator a {
   width: 200px;
@@ -246,7 +250,7 @@ a {
 .carousel-caption {
   & h1 {
     text-shadow: 1px 1px 3px #000;
-    letter-spacing: 2px
+    letter-spacing: 2px;
   }
 }
 
@@ -257,9 +261,8 @@ a {
 }
 
 @media (min-width: 768px) and (max-width: 1366px) {
-
   h1 {
-    font-size: 2.0rem;
+    font-size: 2rem;
   }
 
   h2 {
@@ -267,40 +270,45 @@ a {
   }
 
   h5 {
-    font-size: 1.0rem;
+    font-size: 1rem;
   }
 
   .descriptionText {
     font-size: 15px;
   }
 
-  .planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper {
+  .planetsListWrapper,
+  .planetItemWrapper,
+  .homeWrapper,
+  .filmsWrapper {
     min-height: 100%;
     background: none;
   }
-
 
   .planetsListWrapper {
     background: none;
   }
 
   .planetItemWrapper {
-
     & img {
       height: 150px;
       width: 150px;
     }
   }
 
-  .planetCard, .residentCard, .sectionCard {
-    background-color: #F8F9FA;
+  .planetCard,
+  .residentCard,
+  .sectionCard {
+    background-color: #f8f9fa;
 
     &:hover {
       border: none;
     }
   }
 
-  .planetListContainer, .peopleListContainer, .sectionsContainer {
+  .planetListContainer,
+  .peopleListContainer,
+  .sectionsContainer {
     min-width: 100%;
   }
 
@@ -319,7 +327,7 @@ a {
       & h1 {
         font-size: 1.5rem;
         text-shadow: 1px 1px 3px #000;
-        letter-spacing: 2px
+        letter-spacing: 2px;
       }
     }
   }
@@ -331,7 +339,6 @@ a {
     height: 40px;
     background-color: #f5f5f5;
   }
-
 
   .flex {
     display: flex;
@@ -348,7 +355,6 @@ a {
   }
 }
 
-
 @media (max-width: 767px) {
   html {
     position: relative;
@@ -360,7 +366,7 @@ a {
   }
 
   h1 {
-    font-size: 2.0rem;
+    font-size: 2rem;
   }
 
   h2 {
@@ -368,49 +374,52 @@ a {
   }
 
   h5 {
-    font-size: 1.0rem;
-
+    font-size: 1rem;
   }
 
   .descriptionText {
     font-size: 15px;
   }
 
-  .planetsListWrapper, .planetItemWrapper, .homeWrapper, .filmsWrapper {
+  .planetsListWrapper,
+  .planetItemWrapper,
+  .homeWrapper,
+  .filmsWrapper {
     min-height: 100%;
     background: none;
   }
 
-
-  .planetItemContainer, .residentItemContainer {
+  .planetItemContainer,
+  .residentItemContainer {
     min-width: 90%;
   }
 
-  .planetListContainer, .peopleListContainer, .sectionsContainer {
+  .planetListContainer,
+  .peopleListContainer,
+  .sectionsContainer {
     min-width: 90%;
   }
 
   .planetItemWrapper {
-
     & img {
       height: 150px;
       width: 150px;
     }
-
   }
 
-  .planetCard, .residentCard, .sectionCard {
+  .planetCard,
+  .residentCard,
+  .sectionCard {
     max-width: 70%;
-    background-color: #F8F9FA;
+    background-color: #f8f9fa;
 
     &:hover {
       border: none;
     }
   }
   .paginator a {
-    width: 130px
+    width: 130px;
   }
-
 
   .filmsWrapper {
     height: 100%;
@@ -427,7 +436,7 @@ a {
       & h1 {
         font-size: 0.95rem;
         text-shadow: 1px 1px 3px #000;
-        letter-spacing: 2px
+        letter-spacing: 2px;
       }
     }
 
@@ -447,14 +456,11 @@ a {
     }
 
     & .descriptionText {
-      font-size: 1.0rem;
+      font-size: 1rem;
       margin: 0;
       padding: 0 15px;
     }
-
-
   }
-
 
   .flex {
     display: flex;
