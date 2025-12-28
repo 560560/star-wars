@@ -1,0 +1,27 @@
+# Игнорируемые файлы и папки для Prettier
+
+# Зависимости
+node_modules
+.pnp
+.pnp.js
+
+# Сборка
+dist
+build
+
+# Кэш
+.cache
+*.tsbuildinfo
+
+# Конфигурации
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# IDE
+.idea
+.vscode
+
+# Прочее
+coverage
+.DS_Store

@@ -1,29 +1,29 @@
-import React, { useEffect, useMemo } from 'react';
-import { Card, Container, Row } from 'react-bootstrap';
-import { Preloader } from '../Common/Preloader/Preloader';
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { isEqual } from 'lodash';
-import { getSections } from '../../redux/sections-reducer';
+import React, { useEffect, useMemo } from 'react'
+import { Card, Container, Row } from 'react-bootstrap'
+import { Preloader } from '../Common/Preloader/Preloader'
+import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { isEqual } from 'lodash'
+import { getSections } from '../../redux/sections-reducer'
 
 export const Home = () => {
-  const dispatch = useDispatch();
-  const images = useSelector((state) => state.imagesStore.sections, isEqual);
-  const sections = useSelector((state) => state.sectionsPage.sections, isEqual);
+  const dispatch = useDispatch()
+  const images = useSelector((state) => state.imagesStore.sections, isEqual)
+  const sections = useSelector((state) => state.sectionsPage.sections, isEqual)
 
   useEffect(() => {
     if (!sections) {
-      dispatch(getSections());
+      dispatch(getSections())
     }
-  }, [dispatch]);
+  }, [dispatch])
 
   const sectionsNames = useMemo(
     () => (sections ? Object.keys(sections)?.sort() : null),
-    [sections]
-  );
+    [sections],
+  )
 
   if (!sectionsNames) {
-    return <Preloader />;
+    return <Preloader />
   }
 
   return (
@@ -43,7 +43,10 @@ export const Home = () => {
               />
               <Card.Body>
                 <Card.Title className="mb-4">
-                  <NavLink to={'/' + section + '/1'} className="descriptionButton sections">
+                  <NavLink
+                    to={'/' + section + '/1'}
+                    className="descriptionButton sections"
+                  >
                     {section.toLowerCase()}
                   </NavLink>
                 </Card.Title>
@@ -53,5 +56,5 @@ export const Home = () => {
         </Row>
       </Container>
     </div>
-  );
-};
+  )
+}
