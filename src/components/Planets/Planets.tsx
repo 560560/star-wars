@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container, Row } from 'react-bootstrap'
 
 import { Preloader } from '../Common/Preloader/Preloader'
 import { planetsExtras } from './constants'
@@ -17,15 +16,15 @@ const Planets = () => {
 
   return (
     <div className="planetsListWrapper">
-      <Container className="planetListContainer">
+      <div className="container mx-auto px-4 planetListContainer">
         <h1 className="text-center pt-5 mb-5">
           Planets of the Star wars universe
         </h1>
-        <Row
+        <div
           className={
             isLoading
-              ? 'justify-content-center foggy'
-              : 'justify-content-center'
+              ? 'flex flex-wrap justify-center foggy'
+              : 'flex flex-wrap justify-center'
           }
         >
           {planets.map((planet) => (
@@ -35,8 +34,8 @@ const Planets = () => {
               planet={planet}
             />
           ))}
-        </Row>
-      </Container>
+        </div>
+      </div>
     </div>
   )
 }

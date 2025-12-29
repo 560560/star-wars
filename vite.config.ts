@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      '@/store': path.resolve(__dirname, './src/store/store.ts'),
       '@': path.resolve(__dirname, './src'),
     },
   },

@@ -1,14 +1,384 @@
-body {
-  margin: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Custom font faces */
+@font-face {
+  font-family: 'Starjedi';
+  font-style: normal;
+  font-weight: normal;
+  src: url('./assets/fonts/Starjedi.ttf') format('truetype');
 }
 
-code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+@font-face {
+  font-family: 'AurebeshDroid';
+  font-style: normal;
+  font-weight: normal;
+  src: url('./assets/fonts/AurebeshDroid.ttf') format('truetype');
+}
+
+/* Base layer - global styles */
+@layer base {
+  html {
+    @apply relative min-h-full;
+  }
+
+  body {
+    @apply m-0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    @apply font-starjedi;
+  }
+
+  h2 {
+    @apply font-aurebesh;
+  }
+
+  h5 {
+    margin-right: 25px;
+  }
+
+  a,
+  a:hover {
+    @apply text-black no-underline;
+  }
+
+  code {
+    font-family:
+      source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+}
+
+/* Components layer - reusable component styles */
+@layer components {
+  /* App wrapper grid layout */
+  .appWrapper {
+    @apply h-full min-h-screen grid;
+    grid-template-rows: 56px 1fr 40px;
+  }
+
+  /* Header logo */
+  .headerLogo,
+  .headerLogo:hover {
+    @apply font-starjedi pl-10;
+    color: white;
+  }
+
+  /* Navbar z-index */
+  .navbar {
+    @apply z-10;
+  }
+
+  /* Link with border hover effect */
+  .link {
+    padding: 2px 0;
+    @apply border-t-2 border-b-2 border-white transition-all duration-800;
+  }
+
+  .link:hover {
+    @apply border-t-2 border-b-2 transition-all duration-800;
+    border-color: rgba(23, 162, 184, 0.6);
+  }
+
+  /* Blur effect for loading states */
+  .foggy {
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    @apply blur-sm;
+  }
+
+  /* Planet and Resident cards */
+  .planetCard,
+  .residentCard {
+    border: 3px solid rgba(255, 255, 255, 0);
+    @apply rounded-card transition-all duration-500 bg-transparent;
+  }
+
+  .planetCard:hover,
+  .residentCard:hover {
+    border: 3px solid rgba(23, 162, 184, 0.6);
+    @apply transition-all duration-600;
+  }
+
+  .planetCard:hover > img,
+  .residentCard:hover > img {
+    @apply scale-104 transition-all duration-600;
+  }
+
+  .planetCard img,
+  .residentCard img {
+    @apply w-[150px] transition-all duration-600;
+  }
+
+  /* Section cards */
+  .sectionCard {
+    background-color: rgba(255, 255, 255, 0);
+    @apply border-0;
+  }
+
+  .sectionCard img {
+    @apply h-[150px] w-[150px];
+  }
+
+  .card-title {
+    @apply font-starjedi;
+  }
+
+  /* Buttons */
+  .descriptionButton,
+  .backToPlanetsButton,
+  .backToPeopleButton {
+    @apply text-white bg-sw-cyan border border-sw-cyan inline-block font-normal text-center align-middle px-3 py-1.5 text-base leading-6 rounded transition-all duration-150;
+  }
+
+  .descriptionButton:hover,
+  .backToPlanetsButton:hover,
+  .backToPeopleButton:hover {
+    @apply no-underline bg-sw-cyan-dark text-white;
+  }
+
+  /* Section buttons */
+  .sections {
+    background-color: rgba(255, 255, 255, 0);
+    @apply border-2 border-sw-cyan text-black transition-all duration-400;
+    letter-spacing: 2px;
+  }
+
+  .sections:hover {
+    @apply bg-sw-cyan transition-all duration-400;
+  }
+
+  /* Background wrappers */
+  .planetsListWrapper,
+  .planetItemWrapper,
+  .homeWrapper,
+  .filmsWrapper {
+    background:
+      url('./assets/images/bg.jpg') no-repeat center center fixed,
+      rgba(255, 255, 255, 0.8);
+    background-blend-mode: color;
+    -moz-background-size: 100%;
+    -webkit-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+  }
+
+  /* Films wrapper specific */
+  .filmsWrapper {
+    @apply h-full pt-10;
+  }
+
+  .filmsWrapper .carousel-item img {
+    @apply rounded-carousel;
+  }
+
+  /* Carousel wrapper */
+  .carousel-wrapper {
+    @apply relative z-[1];
+  }
+
+  /* Carousel */
+  .carousel {
+    width: 70%;
+  }
+
+  /* Custom Swiper pagination bullets */
+  .custom-bullet {
+    border: 1px solid #93c3fd;
+    border-radius: 10px;
+    background: radial-gradient(#ffffff, #91caf4);
+    margin: 0 10px;
+    width: 10%;
+    height: 10px;
+    opacity: 1;
+  }
+
+  .custom-bullet-active {
+    -webkit-box-shadow: 0 0 9px 0 rgba(51, 138, 252, 0.97);
+    -moz-box-shadow: 0 0 9px 0 rgba(51, 138, 252, 0.97);
+    box-shadow: 0 0 9px 0 rgba(51, 138, 252, 0.97);
+  }
+
+  /* Paginator */
+  .paginator a {
+    @apply w-[200px] text-white bg-sw-cyan border border-sw-cyan inline-block font-normal text-center align-middle px-3 py-1.5 text-base leading-6 rounded transition-all duration-150;
+  }
+
+  .paginator a:hover {
+    @apply no-underline bg-sw-cyan-dark text-white;
+  }
+
+  .pseudoButtonOff a {
+    @apply bg-gray-500;
+  }
+
+  .pseudoButtonOff a:hover {
+    @apply bg-gray-500;
+  }
+
+  /* Footer */
+  .footerWrapper {
+    @apply absolute bottom-0 w-full h-10 bg-sw-gray-lighter;
+  }
+
+  /* Under construction flex layout */
+  .flexWrapper {
+    @apply flex flex-col;
+    height: calc(100vh - 140px);
+  }
+
+  .flexWrapper .underConstruction {
+    @apply min-h-full;
+  }
+
+  .flexWrapper .underConstruction img {
+    @apply w-[30%];
+  }
+
+  /* Carousel captions */
+  .carousel-caption h1 {
+    text-shadow: 1px 1px 3px #000;
+    letter-spacing: 2px;
+  }
+
+  /* Carousel controls */
+  .carousel-control-next-icon,
+  .carousel-control-prev-icon {
+    @apply w-[30px] h-[30px];
+  }
+}
+
+/* Utilities layer - custom utilities and responsive styles */
+@layer utilities {
+  /* Common styles for mobile + tablet (max-width: 1366px) */
+  @media (max-width: 1366px) {
+    h1 {
+      @apply text-3xl;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+    }
+
+    h5 {
+      @apply text-base;
+    }
+
+    .descriptionText {
+      @apply text-[15px];
+    }
+
+    .planetsListWrapper,
+    .planetItemWrapper,
+    .homeWrapper,
+    .filmsWrapper {
+      @apply min-h-full;
+      background: none;
+    }
+
+    .planetItemWrapper img {
+      @apply h-[150px] w-[150px];
+    }
+
+    .planetCard,
+    .residentCard,
+    .sectionCard {
+      @apply bg-sw-gray-light;
+    }
+
+    .planetCard:hover,
+    .residentCard:hover,
+    .sectionCard:hover {
+      @apply border-0;
+    }
+  }
+
+  /* Mobile-only styles */
+  @media (max-width: 767px) {
+    body {
+      margin: 0 0 70px 0 !important;
+    }
+
+    .planetItemContainer,
+    .residentItemContainer {
+      min-width: 90%;
+    }
+
+    .planetListContainer,
+    .peopleListContainer,
+    .sectionsContainer {
+      min-width: 90%;
+    }
+
+    .planetCard,
+    .residentCard,
+    .sectionCard {
+      max-width: 70%;
+    }
+
+    .paginator a {
+      @apply w-[130px];
+    }
+
+    .filmsWrapper .container {
+      min-width: 90%;
+    }
+
+    .filmsWrapper .carousel-caption {
+      @apply p-0 bottom-0;
+    }
+
+    .filmsWrapper .carousel-caption h1 {
+      font-size: 0.95rem;
+      text-shadow: 1px 1px 3px #000;
+      letter-spacing: 2px;
+    }
+
+    .filmsWrapper .carousel {
+      width: 95%;
+    }
+
+    .filmsWrapper .descriptionTitle h5 {
+      font-size: 1.3rem;
+      @apply mr-0 mb-2.5 mt-5;
+    }
+
+    .filmsWrapper .descriptionText {
+      @apply text-base m-0 px-4;
+    }
+
+    .flexWrapper .underConstruction img {
+      @apply w-[60%];
+    }
+  }
+
+  /* Tablet-only styles */
+  @media (min-width: 768px) and (max-width: 1366px) {
+    .planetListContainer,
+    .peopleListContainer,
+    .sectionsContainer {
+      min-width: 100%;
+    }
+
+    .filmsWrapper .container {
+      min-width: 95%;
+    }
+
+    .filmsWrapper .carousel-caption {
+      @apply p-0 bottom-1;
+    }
+
+    .filmsWrapper .carousel-caption h1 {
+      font-size: 1.5rem;
+      text-shadow: 1px 1px 3px #000;
+      letter-spacing: 2px;
+    }
+
+    .flexWrapper .underConstruction img {
+      @apply w-[40%];
+    }
+  }
 }

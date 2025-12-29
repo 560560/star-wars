@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
 import { NavLink, useHistory, useParams } from 'react-router-dom'
 
 import emptyImg from '../../../assets/images/empty_img.png'
@@ -46,83 +45,91 @@ const ResidentItem = () => {
 
   return (
     <div className="planetItemWrapper">
-      <Container
+      <div
         className={
           isLoading
-            ? 'foggy text-center residentItemContainer'
-            : 'text-center residentItemContainer'
+            ? 'foggy text-center residentItemContainer container mx-auto px-4'
+            : 'text-center residentItemContainer container mx-auto px-4'
         }
       >
-        <Row className="pt-5 mb-5 align-items-center">
-          <Col className="col-sm-5 text-lg-right text-md-right text-sm-center pl-sm-5 pb-sm-0 pb-3">
+        <div className="flex flex-wrap pt-5 mb-5 items-center">
+          <div className="w-full sm:w-5/12 px-3 text-center sm:text-right pl-sm-5 pb-3 sm:pb-0">
             <img alt={person.name} src={emptyImg} width={200} />
-          </Col>
-          <Col className="col-sm-6 col-12 text-lg-center text-md-center text-sm-left">
+          </div>
+          <div className="w-full sm:w-6/12 px-3 text-left sm:text-center">
             <h1>{person.name.toLowerCase()}</h1>
             <h2>{person.name.toLowerCase()}</h2>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Name:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">{person.name}</Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
+            {person.name}
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Height:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">{person.height}</Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
+            {person.height}
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Mass:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">{person.mass}</Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
+            {person.mass}
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Hair color:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
             {person.hair_color}
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Skin color:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
             {person.skin_color}
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Eye color:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
             {person.eye_color}
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Birth year:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
             {person.birth_year}
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Gender:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">{person.gender}</Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
+            {person.gender}
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Homeworld:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
             {isHomePlanetLoading || !homePlanet ? (
               <ContentListLoader />
             ) : (
@@ -133,35 +140,38 @@ const ResidentItem = () => {
                 {'name' in homePlanet ? homePlanet.name : ''}
               </NavLink>
             )}
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="col-4 text-right descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
             <h5>Films:</h5>
-          </Col>
-          <Col className="col-8 text-left descriptionText">
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
             {isFilmsLoading || !films ? (
               <ContentListLoader />
             ) : (
-              <Row>
+              <div className="flex flex-wrap">
                 {films.map((film) => (
-                  <Col key={film.url} className="col-md-4 col-sm-6 col-12 mb-1">
+                  <div
+                    key={film.url}
+                    className="w-full md:w-4/12 sm:w-6/12 px-3 mb-1"
+                  >
                     <NavLink
                       className="link"
                       to={`/films/${getPageId(film.url)}`}
                     >
                       {'title' in film ? film.title : ''}
                     </NavLink>
-                  </Col>
+                  </div>
                 ))}
-              </Row>
+              </div>
             )}
-          </Col>
-        </Row>
-        <Button className="backToPeopleButton mb-3 w-100" onClick={handleBack}>
+          </div>
+        </div>
+        <button className="backToPeopleButton mb-3 w-full" onClick={handleBack}>
           Back
-        </Button>
-      </Container>
+        </button>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 import emptyImg from '../../../assets/images/empty_img.png'
@@ -18,23 +17,26 @@ const ResidentListItem: React.FC<ResidentListItemProps> = ({
 }) => {
   const residentId = parseInt(resident.url.replace(/[^\d]/g, ''))
   return (
-    <Card className="col-lg-3 col-md-4 col-sm-5 col-12 residentCard text-center m-3 p-0">
-      <Card.Img
+    <div className="w-full sm:w-[calc(41.66%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[calc(25%-1.5rem)] residentCard text-center m-3 p-0">
+      <img
+        alt={resident.name}
         className="mx-auto mt-3 mb-2"
         src={emptyImg}
-        variant="top"
         width={150}
       />
-      <Card.Body onClick={() => setPeopleListYPosition?.(window.scrollY)}>
-        <Card.Title className="mb-4">{resident.name.toLowerCase()}</Card.Title>
+      <div
+        className="p-4"
+        onClick={() => setPeopleListYPosition?.(window.scrollY)}
+      >
+        <h5 className="card-title mb-4">{resident.name.toLowerCase()}</h5>
         <NavLink
           className="descriptionButton mb-2"
           to={`/resident/${residentId}`}
         >
           Description
         </NavLink>
-      </Card.Body>
-    </Card>
+      </div>
+    </div>
   )
 }
 

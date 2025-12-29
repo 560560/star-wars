@@ -1,5 +1,4 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
 
 import preloader from '../../../assets/images/preloader.gif'
 
@@ -10,17 +9,17 @@ const rowStyle = { height: `${preloaderPositionHeight}px` }
 
 export const Preloader = () => {
   return (
-    <Container>
-      <Row className="align-items-center text-center" style={rowStyle}>
-        <Col>
+    <div className="container mx-auto px-4">
+      <div className="flex items-center text-center -mx-3" style={rowStyle}>
+        <div className="w-full px-3">
           <img
             alt="Loading"
             className="mt-5"
             height={preloaderHeight}
             src={preloader}
           />
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   )
 }

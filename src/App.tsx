@@ -2,7 +2,7 @@ import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
-import './styles/main.scss'
+import './index.css'
 import { Films } from './components/Films'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'

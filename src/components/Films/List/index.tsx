@@ -1,5 +1,4 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 import { getPageId } from '../../../utils'
@@ -21,14 +20,14 @@ export const List: React.FC<ListProps> = ({ items, to }) => {
   }
 
   return (
-    <Row>
-      {items.map((item) => (
-        <Col key={item.url} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
-          <NavLink className="link" to={`/${to}/${getPageId(item.url)}`}>
-            {item.name || item.title || 'Unknown'}
+    <div className="flex flex-wrap">
+      {items.map(({ url, name, title }) => (
+        <div key={url} className="w-6/12 sm:w-6/12 lg:w-4/12 px-3 mt-1 mb-1">
+          <NavLink className="link" to={`/${to}/${getPageId(url)}`}>
+            {name || title || 'Unknown'}
           </NavLink>
-        </Col>
+        </div>
       ))}
-    </Row>
+    </div>
   )
 }

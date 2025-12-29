@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container, Row } from 'react-bootstrap'
 
 import { Preloader } from '../Common/Preloader/Preloader'
 import ResidentListItem from './ResidentListItem/ResidentListItem'
@@ -15,22 +14,22 @@ const Residents = () => {
 
   return (
     <div className="planetsListWrapper">
-      <Container className="peopleListContainer">
+      <div className="container mx-auto px-4 peopleListContainer">
         <h1 className="text-center pt-5 mb-5">
           People of the Star wars universe
         </h1>
-        <Row
+        <div
           className={
             isLoading
-              ? 'justify-content-center foggy'
-              : 'justify-content-center'
+              ? 'flex flex-wrap justify-center foggy'
+              : 'flex flex-wrap justify-center'
           }
         >
           {people.map((resident) => (
             <ResidentListItem key={resident.url} resident={resident} />
           ))}
-        </Row>
-      </Container>
+        </div>
+      </div>
     </div>
   )
 }

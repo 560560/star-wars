@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { showErrorNotification } from '@/utils/notifications'
@@ -44,59 +43,61 @@ export const NotificationsDemo: React.FC = () => {
   }
 
   return (
-    <Container className="mt-5">
+    <div className="container mx-auto px-4 mt-5">
       <h2 className="mb-4">Тестирование уведомлений об ошибках</h2>
-      <p className="text-muted mb-4">
+      <p className="text-gray-500 mb-4">
         SWAPI - read-only API, поэтому показываем только ошибки загрузки данных
       </p>
-      <Row className="g-3">
-        <Col md={6} xs={12}>
-          <Button
-            className="w-100"
-            variant="danger"
+      <div className="flex flex-wrap gap-3">
+        <div className="w-full md:w-6/12 px-3">
+          <button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleSimpleError}
           >
             Простая ошибка
-          </Button>
-        </Col>
-        <Col md={6} xs={12}>
-          <Button
-            className="w-100"
-            variant="danger"
+          </button>
+        </div>
+        <div className="w-full md:w-6/12 px-3">
+          <button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleNetworkError}
           >
             Ошибка сети (FETCH_ERROR)
-          </Button>
-        </Col>
-        <Col md={6} xs={12}>
-          <Button
-            className="w-100"
-            variant="danger"
+          </button>
+        </div>
+        <div className="w-full md:w-6/12 px-3">
+          <button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleTimeoutError}
           >
             Таймаут (TIMEOUT_ERROR)
-          </Button>
-        </Col>
-        <Col md={6} xs={12}>
-          <Button className="w-100" variant="danger" onClick={handle404Error}>
+          </button>
+        </div>
+        <div className="w-full md:w-6/12 px-3">
+          <button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handle404Error}
+          >
             404 - Not Found
-          </Button>
-        </Col>
-        <Col md={6} xs={12}>
-          <Button className="w-100" variant="danger" onClick={handle500Error}>
+          </button>
+        </div>
+        <div className="w-full md:w-6/12 px-3">
+          <button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handle500Error}
+          >
             500 - Server Error
-          </Button>
-        </Col>
-        <Col md={6} xs={12}>
-          <Button
-            className="w-100"
-            variant="outline-danger"
+          </button>
+        </div>
+        <div className="w-full md:w-6/12 px-3">
+          <button
+            className="w-full border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-bold py-2 px-4 rounded"
             onClick={handleCustomError}
           >
             Кастомное сообщение
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
