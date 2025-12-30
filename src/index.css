@@ -25,6 +25,11 @@
 
   body {
     @apply m-0;
+    background:
+      url('./assets/images/bg.jpg') no-repeat center center fixed,
+      rgba(255, 255, 255, 0.8);
+    background-blend-mode: color;
+    background-size: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -72,15 +77,19 @@
     @apply z-10;
   }
 
-  /* Link with border hover effect */
+  /* Lightsaber glow hover effect */
   .link {
-    padding: 2px 0;
-    @apply border-t-2 border-b-2 border-white transition-all duration-800;
+    @apply relative px-2 py-1;
+    transition: all 0.4s ease;
   }
 
   .link:hover {
-    @apply border-t-2 border-b-2 transition-all duration-800;
-    border-color: rgba(23, 162, 184, 0.6);
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 15px rgba(23, 162, 184, 0.8),
+      0 0 20px rgba(23, 162, 184, 0.6),
+      0 0 30px rgba(23, 162, 184, 0.4);
   }
 
   /* Blur effect for loading states */
@@ -90,17 +99,23 @@
     @apply blur-sm;
   }
 
+  .sectionsContainer {
+    @apply mt-10 max-w-[800px];
+  }
+
+  .sectionTitle {
+    font-size: 30px;
+    @apply font-starjedi;
+  }
+
   /* Planet and Resident cards */
   .planetCard,
   .residentCard {
-    border: 3px solid rgba(255, 255, 255, 0);
     @apply rounded-card transition-all duration-500 bg-transparent;
   }
 
   .planetCard:hover,
   .residentCard:hover {
-    border: 3px solid rgba(23, 162, 184, 0.6);
-    @apply transition-all duration-600;
   }
 
   .planetCard:hover > img,
@@ -128,22 +143,29 @@
   }
 
   /* Buttons */
-  .descriptionButton,
-  .backToPlanetsButton,
-  .backToPeopleButton {
-    @apply text-white bg-sw-cyan border border-sw-cyan inline-block font-normal text-center align-middle px-3 py-1.5 text-base leading-6 rounded transition-all duration-150;
+  .descriptionButton {
+    @apply text-sw-cyan bg-white border-sw-cyan border-2 inline-block font-normal text-center align-middle px-3 py-1.5 text-base leading-6 rounded-full transition-all duration-200 w-[240px];
   }
 
-  .descriptionButton:hover,
-  .backToPlanetsButton:hover,
-  .backToPeopleButton:hover {
-    @apply no-underline bg-sw-cyan-dark text-white;
+  .descriptionButton:hover {
+    @apply no-underline bg-sw-cyan border-sw-cyan text-white;
+  }
+
+  /* Buttons */
+  .backButton,
+  .backButton {
+    @apply text-sw-cyan bg-white border-sw-cyan border-2 inline-block font-normal text-center align-middle px-3 py-1.5 text-base leading-6 rounded-full transition-all duration-200 w-[260px] text-[18px];
+  }
+
+  .backButton:hover,
+  .backButton:hover {
+    @apply no-underline bg-sw-cyan border-sw-cyan text-white;
   }
 
   /* Section buttons */
   .sections {
     background-color: rgba(255, 255, 255, 0);
-    @apply border-2 border-sw-cyan text-black transition-all duration-400;
+    @apply border-2 border-sw-cyan  transition-all duration-400;
     letter-spacing: 2px;
   }
 
@@ -151,24 +173,9 @@
     @apply bg-sw-cyan transition-all duration-400;
   }
 
-  /* Background wrappers */
-  .planetsListWrapper,
-  .planetItemWrapper,
-  .homeWrapper,
-  .filmsWrapper {
-    background:
-      url('./assets/images/bg.jpg') no-repeat center center fixed,
-      rgba(255, 255, 255, 0.8);
-    background-blend-mode: color;
-    -moz-background-size: 100%;
-    -webkit-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-  }
-
   /* Films wrapper specific */
   .filmsWrapper {
-    @apply h-full pt-10;
+    @apply h-full pt-10 mb-9;
   }
 
   .filmsWrapper .carousel-item img {
@@ -219,11 +226,6 @@
     @apply bg-gray-500;
   }
 
-  /* Footer */
-  .footerWrapper {
-    @apply absolute bottom-0 w-full h-10 bg-sw-gray-lighter;
-  }
-
   /* Under construction flex layout */
   .flexWrapper {
     @apply flex flex-col;
@@ -271,11 +273,7 @@
       @apply text-[15px];
     }
 
-    .planetsListWrapper,
-    .planetItemWrapper,
-    .homeWrapper,
-    .filmsWrapper {
-      @apply min-h-full;
+    body {
       background: none;
     }
 
@@ -304,12 +302,6 @@
 
     .planetItemContainer,
     .residentItemContainer {
-      min-width: 90%;
-    }
-
-    .planetListContainer,
-    .peopleListContainer,
-    .sectionsContainer {
       min-width: 90%;
     }
 
@@ -357,12 +349,6 @@
 
   /* Tablet-only styles */
   @media (min-width: 768px) and (max-width: 1366px) {
-    .planetListContainer,
-    .peopleListContainer,
-    .sectionsContainer {
-      min-width: 100%;
-    }
-
     .filmsWrapper .container {
       min-width: 95%;
     }
@@ -380,5 +366,50 @@
     .flexWrapper .underConstruction img {
       @apply w-[40%];
     }
+  }
+}
+
+/* View Transitions API */
+@layer utilities {
+  /* Base transition animations */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  /* Fade animations for page content */
+  ::view-transition-old(root) {
+    animation-name: vt-fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: vt-fade-in;
+  }
+
+  @keyframes vt-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes vt-fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* Keep header and footer static during transitions */
+  ::view-transition-old(header),
+  ::view-transition-new(header),
+  ::view-transition-old(footer),
+  ::view-transition-new(footer) {
+    animation: none;
   }
 }

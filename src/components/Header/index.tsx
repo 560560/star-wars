@@ -5,7 +5,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gray-800 [view-transition-name:header]">
       <div className="mx-auto px-4">
         <div className="flex h-16 gap-x-8">
           <div className="flex items-center">
@@ -16,43 +16,43 @@ export const Header = () => {
 
           <div className="hidden md:flex md:items-center md:space-x-4">
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/"
             >
               Sections
             </Link>
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/films/1"
             >
               Films
             </Link>
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/planets"
             >
               Planets
             </Link>
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/people"
             >
               People
             </Link>
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/species"
             >
               Species
             </Link>
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/vehicles"
             >
               Vehicles
             </Link>
             <Link
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
               to="/starships"
             >
               Starships

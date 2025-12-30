@@ -1,34 +1,33 @@
 import React, { useEffect } from 'react'
-import { NavLink, useHistory, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
-import emptyImg from '../../../assets/images/empty_img.png'
-import { ContentListLoader } from '../../Common/ContentLoader'
-import { Preloader } from '../../Common/Preloader/Preloader'
+import { ContentListLoader } from '../../common/ContentLoader'
+import { Preloader } from '../../common/Preloader'
+import { planetsExtras } from '../constants'
 
-import {
-  useGetResourceByUrlQuery,
-  useGetResourcesByUrlsQuery,
-} from '@/api/baseApi'
-import { useGetPersonQuery } from '@/api/peopleApi'
+import { useGetResourcesByUrlsQuery } from '@/api/baseApi'
+import { useGetPlanetQuery } from '@/api/planetsApi'
+import { useViewTransition } from '@/hooks/useViewTransition'
+import { formatPopulation } from '@/utils/formatNumber'
 
 const getPageId = (url: string): number => parseInt(url.replace(/[^\d]/g, ''))
 
-const ResidentItem = () => {
-  const { residentId } = useParams<{ residentId?: string }>()
-  const history = useHistory()
+const PlanetItem = () => {
+  const { planetId } = useParams<{ planetId?: string }>()
+  const { goBack } = useViewTransition()
 
-  const { data: person, isLoading } = useGetPersonQuery(
-    residentId ? parseInt(residentId) : 0,
+  const images = planetsExtras
+
+  const { data: planet, isLoading } = useGetPlanetQuery(
+    planetId ? parseInt(planetId) : 0,
   )
 
-  const { data: homePlanet, isLoading: isHomePlanetLoading } =
-    useGetResourceByUrlQuery(person?.homeworld || '', {
-      skip: !person?.homeworld,
-    })
+  const { data: residents, isLoading: isResidentsLoading } =
+    useGetResourcesByUrlsQuery(planet?.residents, { skip: !planet })
 
   const { data: films, isLoading: isFilmsLoading } = useGetResourcesByUrlsQuery(
-    person?.films,
-    { skip: !person },
+    planet?.films,
+    { skip: !planet },
   )
 
   useEffect(() => {
@@ -36,109 +35,122 @@ const ResidentItem = () => {
   }, [])
 
   const handleBack = () => {
-    history.goBack()
+    goBack()
   }
 
-  if (isLoading || !person) {
+  if (isLoading || !planet) {
     return <Preloader />
   }
 
+  const planetImg = images.find((item) => item.name === planet.name)
+  const planetImgSrc =
+    planetImg?.imgSrc || images.find((item) => item.name === 'unknown')?.imgSrc
+
   return (
-    <div className="planetItemWrapper">
+    <div className="sectionsContainer mx-auto max-w-[1000px] w-full">
       <div
         className={
           isLoading
-            ? 'foggy text-center residentItemContainer container mx-auto px-4'
-            : 'text-center residentItemContainer container mx-auto px-4'
+            ? 'foggy text-center planetItemContainer container mx-auto px-4'
+            : 'text-center planetItemContainer container mx-auto px-4'
         }
       >
-        <div className="flex flex-wrap pt-5 mb-5 items-center">
-          <div className="w-full sm:w-5/12 px-3 text-center sm:text-right pl-sm-5 pb-3 sm:pb-0">
-            <img alt={person.name} src={emptyImg} width={200} />
+        <div className="flex flex-wrap gap-x-8  pt-5 mb-[62px]">
+          <div className="w-[220px] justify-items-end sm:pb-0">
+            <img alt={planet.name} src={planetImgSrc} />
           </div>
-          <div className="w-full sm:w-6/12 px-3 text-left sm:text-center">
-            <h1>{person.name.toLowerCase()}</h1>
-            <h2>{person.name.toLowerCase()}</h2>
-          </div>
-        </div>
-        <div className="flex flex-wrap mb-3">
-          <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Name:</h5>
-          </div>
-          <div className="w-8/12 px-3 text-left descriptionText">
-            {person.name}
+          <div className="flex flex-col justify-center text-left sm:text-center text-2xl">
+            <h1>{planet.name.toLowerCase()}</h1>
+            <h2>{planet.name.toLowerCase()}</h2>
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Height:</h5>
+            <h5>Rotation period:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.height}
+            {planet.rotation_period}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Mass:</h5>
+            <h5>Orbital period:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.mass}
+            {planet.orbital_period}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Hair color:</h5>
+            <h5>Diameter:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.hair_color}
+            {planet.diameter}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Skin color:</h5>
+            <h5>Climate:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.skin_color}
+            {planet.climate}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Eye color:</h5>
+            <h5>Gravity:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.eye_color}
+            {planet.gravity}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Birth year:</h5>
+            <h5>Terrain:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.birth_year}
+            {planet.terrain}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Gender:</h5>
+            <h5>Surface water:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {person.gender}
+            {planet.surface_water}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
           <div className="w-4/12 px-3 text-right descriptionTitle">
-            <h5>Homeworld:</h5>
+            <h5>Population:</h5>
           </div>
           <div className="w-8/12 px-3 text-left descriptionText">
-            {isHomePlanetLoading || !homePlanet ? (
+            {formatPopulation(planet.population)}
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-3">
+          <div className="w-4/12 px-3 text-right descriptionTitle">
+            <h5>Residents:</h5>
+          </div>
+          <div className="w-8/12 px-3 text-left descriptionText">
+            {isResidentsLoading || !residents ? (
               <ContentListLoader />
             ) : (
-              <NavLink
-                className="link"
-                to={`/planet/${getPageId(homePlanet.url)}`}
-              >
-                {'name' in homePlanet ? homePlanet.name : ''}
-              </NavLink>
+              <div className="flex flex-wrap">
+                {residents.map((resident) => (
+                  <div
+                    key={resident.url}
+                    className="w-full md:w-4/12 sm:w-6/12  mt-1 mb-1"
+                  >
+                    <NavLink
+                      className="link"
+                      to={`/resident/${getPageId(resident.url)}`}
+                    >
+                      {'name' in resident ? resident.name : ''}
+                    </NavLink>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         </div>
@@ -154,7 +166,7 @@ const ResidentItem = () => {
                 {films.map((film) => (
                   <div
                     key={film.url}
-                    className="w-full md:w-4/12 sm:w-6/12 px-3 mb-1"
+                    className="w-full md:w-4/12 sm:w-6/12 mb-1"
                   >
                     <NavLink
                       className="link"
@@ -168,12 +180,12 @@ const ResidentItem = () => {
             )}
           </div>
         </div>
-        <button className="backToPeopleButton mb-3 w-full" onClick={handleBack}>
-          Back
+        <button className="backButton my-10" onClick={handleBack}>
+          Go back
         </button>
       </div>
     </div>
   )
 }
 
-export default ResidentItem
+export default PlanetItem

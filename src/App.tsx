@@ -7,16 +7,13 @@ import { Films } from './components/Films'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
-import PlanetItem from './components/Planets/PlanetItem/PlanetItem'
-import Planets from './components/Planets/Planets'
-import ResidentItem from './components/Residents/ResidentItem/ResidentItem'
-import Residents from './components/Residents/Residents'
+import Planets from './components/Planets'
+import PlanetItem from './components/Planets/PlanetItem'
+import Residents from './components/Residents'
+import ResidentItem from './components/Residents/ResidentItem'
 import { Species } from './components/Species'
-import { SpecieItem } from './components/Species/SpecieItem'
 import { Starships } from './components/Starships'
-import { StarshipItem } from './components/Starships/StarshipItem'
 import { Vehicles } from './components/Vehicles'
-import { VehicleItem } from './components/Vehicles/VehicleItem'
 
 function App() {
   return (
@@ -52,13 +49,10 @@ function App() {
         <Route component={PlanetItem} path="/planet/:planetId" />
         <Route component={Films} path="/films/:filmId?" />
         <Route exact component={Starships} path="/starships" />
-        <Route component={StarshipItem} path="/starship/:starshipId" />
         <Route exact component={Residents} path="/people" />
         <Route component={ResidentItem} path="/resident/:residentId" />
         <Route exact component={Species} path="/species" />
-        <Route component={SpecieItem} path="/specie/:specie" />
         <Route exact component={Vehicles} path="/vehicles" />
-        <Route component={VehicleItem} path="/vehicle/:vehicle" />
       </Switch>
       <Footer />
     </div>

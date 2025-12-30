@@ -8,8 +8,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { ContentListLoader } from '../Common/ContentLoader'
-import { Preloader } from '../Common/Preloader/Preloader'
+import { ContentListLoader } from '../common/ContentLoader'
+import { Preloader } from '../common/Preloader'
 import { filmsExtras } from './constants'
 import { List } from './List'
 
@@ -81,14 +81,13 @@ export const Films = React.memo(() => {
 
   return (
     <div className="filmsWrapper" style={style}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 w-[1100px]">
         <div className="flex flex-wrap justify-center carousel-wrapper">
           <Swiper
             navigation
             className="pb-5 w-full"
             initialSlide={index}
             modules={[Navigation, Pagination]}
-            pagination={{ clickable: true }}
             slidesPerView={1}
             spaceBetween={0}
             onSlideChange={handleSlideChange}
@@ -99,7 +98,7 @@ export const Films = React.memo(() => {
                 <div className="relative">
                   <img
                     alt={String(episode_id)}
-                    className="block w-full"
+                    className="block w-full rounded-3xl"
                     src={imgSrc}
                   />
                   <div className="absolute bottom-5 left-0 right-0 text-center text-white">
@@ -181,7 +180,7 @@ export const Films = React.memo(() => {
             {isStarshipsLoading ? (
               <ContentListLoader />
             ) : (
-              <List items={starships} to={'starship'} />
+              <List isLinked={false} items={starships} to={'starship'} />
             )}
           </div>
         </div>
@@ -194,7 +193,7 @@ export const Films = React.memo(() => {
             {isVehiclesLoading ? (
               <ContentListLoader />
             ) : (
-              <List items={vehicles} to={'vehicle'} />
+              <List isLinked={false} items={vehicles} to={'vehicle'} />
             )}
           </div>
         </div>
@@ -207,7 +206,7 @@ export const Films = React.memo(() => {
             {isSpeciesLoading ? (
               <ContentListLoader />
             ) : (
-              <List items={species} to={'specie'} />
+              <List isLinked={false} items={species} to={'specie'} />
             )}
           </div>
         </div>

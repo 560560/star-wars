@@ -1,9 +1,11 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useCallback } from 'react'
 
 import emptyImg from '../../../assets/images/empty_img.png'
 
+import { peopleApi } from '@/api/peopleApi'
 import type { IPerson } from '@/api/types'
+import { TransitionLink } from '@/components/common/TransitionLink'
+import { useAppDispatch } from '@/store/hooks'
 
 interface ResidentListItemProps {
   resident: IPerson
@@ -15,12 +17,18 @@ const ResidentListItem: React.FC<ResidentListItemProps> = ({
   resident,
   setPeopleListYPosition,
 }) => {
+  const dispatch = useAppDispatch()
   const residentId = parseInt(resident.url.replace(/[^\d]/g, ''))
+
+  const handlePrefetch = useCallback(() => {
+    dispatch(peopleApi.endpoints.getPerson.initiate(residentId))
+  }, [dispatch, residentId])
+
   return (
-    <div className="w-full sm:w-[calc(41.66%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[calc(25%-1.5rem)] residentCard text-center m-3 p-0">
+    <div className="w-[300px] h-[250px] residentCard text-center m-3 p-0">
       <img
         alt={resident.name}
-        className="mx-auto mt-3 mb-2"
+        className="h-[150px] w-[150px] mx-auto mt-3 mb-2"
         src={emptyImg}
         width={150}
       />
@@ -28,13 +36,15 @@ const ResidentListItem: React.FC<ResidentListItemProps> = ({
         className="p-4"
         onClick={() => setPeopleListYPosition?.(window.scrollY)}
       >
-        <h5 className="card-title mb-4">{resident.name.toLowerCase()}</h5>
-        <NavLink
+        <TransitionLink
           className="descriptionButton mb-2"
           to={`/resident/${residentId}`}
+          onPrefetch={handlePrefetch}
         >
-          Description
-        </NavLink>
+          <h5 className="card-title text-center m-0">
+            {resident.name.toLowerCase()}
+          </h5>
+        </TransitionLink>
       </div>
     </div>
   )
