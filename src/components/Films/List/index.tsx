@@ -1,34 +1,38 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 import { getPageId } from '../../../utils'
 
-interface ListItem {
+interface IListItem {
   name?: string
   title?: string
   url: string
 }
 
-interface ListProps {
-  items?: ListItem[]
+interface IListProps {
+  isLinked?: boolean
+  items?: IListItem[]
   to: string
 }
 
-export const List: React.FC<ListProps> = ({ items, to }) => {
+export const List: React.FC<IListProps> = ({ isLinked = true, items, to }) => {
   if (!items || items.length === 0) {
     return <div>No data available</div>
   }
 
   return (
-    <Row>
-      {items.map((item) => (
-        <Col key={item.url} className="col-lg-4 col-sm-6 col-6 mt-1 mb-1">
-          <NavLink className="link" to={`/${to}/${getPageId(item.url)}`}>
-            {item.name || item.title || 'Unknown'}
-          </NavLink>
-        </Col>
+    <div className="flex flex-wrap">
+      {items.map(({ url, name, title }) => (
+        <div key={url} className="w-6/12 sm:w-6/12 lg:w-4/12 px-3 mt-1 mb-1">
+          {isLinked ? (
+            <NavLink className="link" to={`/${to}/${getPageId(url)}`}>
+              {name || title || 'Unknown'}
+            </NavLink>
+          ) : (
+            <span>{name || title || 'Unknown'}</span>
+          )}
+        </div>
       ))}
-    </Row>
+    </div>
   )
 }

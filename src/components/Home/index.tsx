@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, Container, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 import { sectionsExtras } from './constants'
@@ -7,33 +6,32 @@ import { sectionsExtras } from './constants'
 export const Home = () => {
   return (
     <div className="homeWrapper">
-      <Container className="sectionsContainer">
-        <h1 className="text-center pt-5 mb-5">Welcome to Star Wars universe</h1>
-        <Row className="justify-content-center">
+      <div className="sectionsContainer container mx-auto px-4 text-center">
+        <span className="sectionTitle text-center pt-5 mb-10">
+          Welcome to the Star Wars universe
+        </span>
+        <div className="grid grid-cols-[repeat(3,_300px)] gap-4 justify-center justify-items-center mt-10">
           {sectionsExtras.map(({ name, imgSrc }) => (
-            <Card
-              key={name}
-              className="col-lg-3 col-md-4 col-sm-5 col-12 sectionCard text-center m-3 p-0"
-            >
-              <Card.Img
-                className="mx-auto mt-3 mb-2"
+            <div key={name} className="sectionCard m-3 p-0">
+              <img
+                alt={name}
+                className="h-[150px] w-[150px] mx-auto mt-3 mb-2"
                 src={imgSrc}
-                variant="top"
               />
-              <Card.Body>
-                <Card.Title className="mb-4">
+              <div className="p-4">
+                <div className="card-title mb-4 text-center">
                   <NavLink
                     className="descriptionButton sections"
                     to={`/${name}`}
                   >
                     {name.toLowerCase()}
                   </NavLink>
-                </Card.Title>
-              </Card.Body>
-            </Card>
+                </div>
+              </div>
+            </div>
           ))}
-        </Row>
-      </Container>
+        </div>
+      </div>
     </div>
   )
 }

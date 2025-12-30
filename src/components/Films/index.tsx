@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Carousel, Col, Container, Row } from 'react-bootstrap'
 import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
+import type { Swiper as SwiperType } from 'swiper'
+import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { ContentListLoader } from '../Common/ContentLoader'
-import { Preloader } from '../Common/Preloader/Preloader'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { ContentListLoader } from '../common/ContentLoader'
+import { Preloader } from '../common/Preloader'
 import { filmsExtras } from './constants'
 import { List } from './List'
 
@@ -19,6 +24,7 @@ export const Films = React.memo(() => {
   const { filmId } = useParams<{ filmId?: string }>()
   const [index, setIndex] = useState(0)
   const [internalRouting, setInternalRouting] = useState(false)
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null)
 
   // Fetch all films
   const { data: films, isLoading: isFilmsLoading } = useGetFilmsQuery()
@@ -49,15 +55,19 @@ export const Films = React.memo(() => {
       setIndex((prevIndex) =>
         prevIndex !== chosenFilm ? chosenFilm : prevIndex,
       )
+      if (swiperInstance && swiperInstance.activeIndex !== chosenFilm) {
+        swiperInstance.slideTo(chosenFilm)
+      }
     }
-  }, [filmId, internalRouting])
+  }, [filmId, internalRouting, swiperInstance])
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const handleSelect = useCallback(
-    (selectedIndex: number) => {
+  const handleSlideChange = useCallback(
+    (swiper: SwiperType) => {
+      const selectedIndex = swiper.activeIndex
       setIndex(selectedIndex)
       history.push(`/films/${selectedIndex + 1}`)
       setInternalRouting(true)
@@ -71,130 +81,136 @@ export const Films = React.memo(() => {
 
   return (
     <div className="filmsWrapper" style={style}>
-      <Container>
-        <Row className="justify-content-center carousel-wrapper">
-          <Carousel
-            activeIndex={index}
-            className="pb-5"
-            interval={null}
-            onSelect={handleSelect}
+      <div className="container mx-auto px-4 w-[1100px]">
+        <div className="flex flex-wrap justify-center carousel-wrapper">
+          <Swiper
+            navigation
+            className="pb-5 w-full"
+            initialSlide={index}
+            modules={[Navigation, Pagination]}
+            slidesPerView={1}
+            spaceBetween={0}
+            onSlideChange={handleSlideChange}
+            onSwiper={setSwiperInstance}
           >
             {filmsExtras.map(({ episode_id, imgSrc }) => (
-              <Carousel.Item key={episode_id}>
-                <img
-                  alt={String(episode_id)}
-                  className="d-block w-100"
-                  src={imgSrc}
-                />
-                <Carousel.Caption>
-                  <h1>STAR WARS: episode {episode_id}</h1>
-                </Carousel.Caption>
-              </Carousel.Item>
+              <SwiperSlide key={episode_id}>
+                <div className="relative">
+                  <img
+                    alt={String(episode_id)}
+                    className="block w-full rounded-3xl"
+                    src={imgSrc}
+                  />
+                  <div className="absolute bottom-5 left-0 right-0 text-center text-white">
+                    <h1>STAR WARS: episode {episode_id}</h1>
+                  </div>
+                </div>
+              </SwiperSlide>
             ))}
-          </Carousel>
-        </Row>
+          </Swiper>
+        </div>
 
-        <h1 className="text-center mt-sm-4 mt-2 mb-sm-5 mb-3">
+        <h1 className="text-center mt-4 sm:mt-4 mb-3 sm:mb-5">
           {films[index].title}
         </h1>
-        <Row className="mb-4 pt-2">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+        <div className="flex flex-wrap mb-4 pt-2">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Description:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {films[index].opening_crawl}
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Director:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {films[index].director}
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Producer:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {films[index].producer}
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+          </div>
+        </div>
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Release date:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {moment(films[index].release_date).format('DD.MM.YYYY')}
-          </Col>
-        </Row>
+          </div>
+        </div>
 
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Characters:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {isCharactersLoading ? (
               <ContentListLoader />
             ) : (
               <List items={characters} to={'resident'} />
             )}
-          </Col>
-        </Row>
+          </div>
+        </div>
 
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Planets:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {isPlanetsLoading ? (
               <ContentListLoader />
             ) : (
               <List items={planets} to={'planet'} />
             )}
-          </Col>
-        </Row>
+          </div>
+        </div>
 
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Starships:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {isStarshipsLoading ? (
               <ContentListLoader />
             ) : (
-              <List items={starships} to={'starship'} />
+              <List isLinked={false} items={starships} to={'starship'} />
             )}
-          </Col>
-        </Row>
+          </div>
+        </div>
 
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Vehicles:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {isVehiclesLoading ? (
               <ContentListLoader />
             ) : (
-              <List items={vehicles} to={'vehicle'} />
+              <List isLinked={false} items={vehicles} to={'vehicle'} />
             )}
-          </Col>
-        </Row>
+          </div>
+        </div>
 
-        <Row className="mb-4">
-          <Col className="col-sm-4 col-12 text-sm-right text-left descriptionTitle">
+        <div className="flex flex-wrap mb-4">
+          <div className="w-full sm:w-4/12 px-3 text-left sm:text-right descriptionTitle">
             <h5>Species:</h5>
-          </Col>
-          <Col className="col-sm-8 col-12 text-left descriptionText">
+          </div>
+          <div className="w-full sm:w-8/12 px-3 text-left descriptionText">
             {isSpeciesLoading ? (
               <ContentListLoader />
             ) : (
-              <List items={species} to={'specie'} />
+              <List isLinked={false} items={species} to={'specie'} />
             )}
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   )
 })
