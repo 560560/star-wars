@@ -15,6 +15,7 @@ import { List } from './List'
 
 import { useGetResourcesByUrlsQuery } from '@/api/baseApi'
 import { useGetFilmsQuery } from '@/api/filmsApi'
+import { ErrorMessage } from '@/components/common/ErrorMessage'
 
 const screenHeight = window.innerHeight
 const style = { minHeight: `${screenHeight}px` }
@@ -27,7 +28,11 @@ export const Films = React.memo(() => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null)
 
   // Fetch all films
-  const { data: films, isLoading: isFilmsLoading } = useGetFilmsQuery()
+  const {
+    data: films,
+    isLoading: isFilmsLoading,
+    isError: isFilmsError,
+  } = useGetFilmsQuery()
 
   const currentFilm = films?.[index]
 
@@ -75,8 +80,12 @@ export const Films = React.memo(() => {
     [history],
   )
 
-  if (isFilmsLoading || !films) {
+  if (isFilmsLoading) {
     return <Preloader />
+  }
+
+  if (isFilmsError || !films) {
+    return <ErrorMessage />
   }
 
   return (

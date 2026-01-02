@@ -9,10 +9,8 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ['People', 'Films', 'Planets', 'Species', 'Starships', 'Vehicles'],
   endpoints: (builder) => ({
-    // Универсальный endpoint для получения ресурса по полному URL
     getResourceByUrl: builder.query<SwapiResource, string>({
       query: (url) => {
-        // Извлекаем путь из полного URL
         return url.replace(BASE_URL, '').replace('https://swapi.info/api', '')
       },
     }),

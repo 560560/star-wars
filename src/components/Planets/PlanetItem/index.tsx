@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { ContentListLoader } from '../../common/ContentLoader'
 import { Preloader } from '../../common/Preloader'
@@ -7,6 +7,8 @@ import { planetsExtras } from '../constants'
 
 import { useGetResourcesByUrlsQuery } from '@/api/baseApi'
 import { useGetPlanetQuery } from '@/api/planetsApi'
+import { ErrorMessage } from '@/components/common/ErrorMessage'
+import { TransitionLink } from '@/components/common/TransitionLink'
 import { useViewTransition } from '@/hooks/useViewTransition'
 import { formatPopulation } from '@/utils/formatNumber'
 
@@ -18,9 +20,11 @@ const PlanetItem = () => {
 
   const images = planetsExtras
 
-  const { data: planet, isLoading } = useGetPlanetQuery(
-    planetId ? parseInt(planetId) : 0,
-  )
+  const {
+    data: planet,
+    isLoading,
+    isError,
+  } = useGetPlanetQuery(planetId ? parseInt(planetId) : 0)
 
   const { data: residents, isLoading: isResidentsLoading } =
     useGetResourcesByUrlsQuery(planet?.residents, { skip: !planet })
@@ -38,8 +42,12 @@ const PlanetItem = () => {
     goBack()
   }
 
-  if (isLoading || !planet) {
+  if (isLoading) {
     return <Preloader />
+  }
+
+  if (isError || !planet) {
+    return <ErrorMessage />
   }
 
   const planetImg = images.find((item) => item.name === planet.name)
@@ -142,12 +150,12 @@ const PlanetItem = () => {
                     key={resident.url}
                     className="w-full md:w-4/12 sm:w-6/12  mt-1 mb-1"
                   >
-                    <NavLink
+                    <TransitionLink
                       className="link"
                       to={`/resident/${getPageId(resident.url)}`}
                     >
                       {'name' in resident ? resident.name : ''}
-                    </NavLink>
+                    </TransitionLink>
                   </div>
                 ))}
               </div>
@@ -168,12 +176,12 @@ const PlanetItem = () => {
                     key={film.url}
                     className="w-full md:w-4/12 sm:w-6/12 mb-1"
                   >
-                    <NavLink
+                    <TransitionLink
                       className="link"
                       to={`/films/${getPageId(film.url)}`}
                     >
                       {'title' in film ? film.title : ''}
-                    </NavLink>
+                    </TransitionLink>
                   </div>
                 ))}
               </div>

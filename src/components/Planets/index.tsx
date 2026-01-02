@@ -5,13 +5,17 @@ import { planetsExtras } from './constants'
 import PlanetListItem from './PlanetListItem'
 
 import { useGetPlanetsQuery } from '@/api/planetsApi'
+import { ErrorMessage } from '@/components/common/ErrorMessage'
 
 const Planets = () => {
-  const { data: planets, isLoading } = useGetPlanetsQuery()
-  // Ошибки автоматически показываются middleware - ничего делать не нужно!
+  const { data: planets, isLoading, isError } = useGetPlanetsQuery()
 
-  if (isLoading || !planets) {
+  if (isLoading) {
     return <Preloader />
+  }
+
+  if (isError || !planets) {
+    return <ErrorMessage />
   }
 
   return (

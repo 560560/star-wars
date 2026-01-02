@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import {
   startViewTransition,
@@ -7,10 +7,11 @@ import {
 } from '@/utils/viewTransition'
 
 interface TransitionLinkProps {
-  to: string
-  className?: string
+  activeClassName?: string
   children: React.ReactNode
+  className?: string
   onPrefetch?: () => void
+  to: string
 }
 
 /**
@@ -18,16 +19,29 @@ interface TransitionLinkProps {
  * Provides smooth animated navigation and optional prefetch on hover
  */
 export const TransitionLink: React.FC<TransitionLinkProps> = ({
-  to,
-  className,
+  activeClassName,
   children,
+  className,
   onPrefetch,
+  to,
 }) => {
   const history = useHistory()
+  const location = useLocation()
+
+  const normalizedTo = to.replace(/\/\d+$/, '')
+  const normalizedPath = location.pathname.replace(/\/\d+$/, '')
+
+  const isActive =
+    to === '/'
+      ? location.pathname === '/'
+      : normalizedPath === normalizedTo ||
+        location.pathname.startsWith(`${normalizedTo}/`)
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault()
+
+      if (isActive) return
 
       if (supportsViewTransitions()) {
         startViewTransition(() => {
@@ -37,16 +51,20 @@ export const TransitionLink: React.FC<TransitionLinkProps> = ({
         history.push(to)
       }
     },
-    [history, to],
+    [history, to, isActive],
   )
 
   const handleMouseEnter = useCallback(() => {
     onPrefetch?.()
   }, [onPrefetch])
 
+  const combinedClassName = [className, isActive && activeClassName]
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <a
-      className={className}
+      className={combinedClassName}
       href={to}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

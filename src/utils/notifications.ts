@@ -2,6 +2,39 @@ import toast from 'react-hot-toast'
 import type { SerializedError } from '@reduxjs/toolkit'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
+// Уникальные ID для дедупликации toast'ов
+const TOAST_IDS = {
+  NETWORK_ERROR: 'network-error',
+  SERVER_ERROR: 'server-error',
+} as const
+
+/**
+ * Определяет тип ошибки для группировки toast'ов
+ */
+const getErrorType = (
+  error: FetchBaseQueryError | SerializedError | Error | string,
+): string | null => {
+  if (typeof error !== 'object' || error === null || !('status' in error)) {
+    return null
+  }
+
+  const { status } = error as FetchBaseQueryError
+
+  if (
+    status === 'FETCH_ERROR' ||
+    status === 'TIMEOUT_ERROR' ||
+    status === 'PARSING_ERROR'
+  ) {
+    return TOAST_IDS.NETWORK_ERROR
+  }
+
+  if (typeof status === 'number' && status >= 500) {
+    return TOAST_IDS.SERVER_ERROR
+  }
+
+  return null
+}
+
 /**
  * Форматирует ошибку в читаемое сообщение
  */
@@ -52,13 +85,21 @@ const formatErrorMessage = (
 
 /**
  * Показывает уведомление об ошибке
+ * Сетевые ошибки группируются в один toast для избежания спама
  */
 export const showErrorNotification = (
   error: FetchBaseQueryError | SerializedError | Error | string,
   customMessage?: string,
 ) => {
   const message = customMessage || formatErrorMessage(error)
-  toast.error(message)
+  const toastId = getErrorType(error)
+
+  // Если это сетевая/серверная ошибка — используем один toast id
+  if (toastId) {
+    toast.error(message, { id: toastId })
+  } else {
+    toast.error(message)
+  }
 }
 
 /**

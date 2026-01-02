@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 
 import { getPageId } from '../../../utils'
+
+import { TransitionLink } from '@/components/common/TransitionLink'
 
 interface IListItem {
   name?: string
@@ -25,9 +26,9 @@ export const List: React.FC<IListProps> = ({ isLinked = true, items, to }) => {
       {items.map(({ url, name, title }) => (
         <div key={url} className="w-6/12 sm:w-6/12 lg:w-4/12 px-3 mt-1 mb-1">
           {isLinked ? (
-            <NavLink className="link" to={`/${to}/${getPageId(url)}`}>
+            <TransitionLink className="link" to={`/${to}/${getPageId(url)}`}>
               {name || title || 'Unknown'}
-            </NavLink>
+            </TransitionLink>
           ) : (
             <span>{name || title || 'Unknown'}</span>
           )}

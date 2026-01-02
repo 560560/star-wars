@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 
 import { sectionsExtras } from './constants'
+
+import { TransitionLink } from '@/components/common/TransitionLink'
 
 export const Home = () => {
   return (
@@ -20,12 +21,12 @@ export const Home = () => {
               />
               <div className="p-4">
                 <div className="card-title mb-4 text-center">
-                  <NavLink
+                  <TransitionLink
                     className="descriptionButton sections"
                     to={`/${name}`}
                   >
                     {name.toLowerCase()}
-                  </NavLink>
+                  </TransitionLink>
                 </div>
               </div>
             </div>

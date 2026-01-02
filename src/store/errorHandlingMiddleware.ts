@@ -1,37 +1,33 @@
 import type { Middleware } from '@reduxjs/toolkit'
 import { isRejectedWithValue } from '@reduxjs/toolkit'
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { showErrorNotification } from '@/utils/notifications'
 
-/**
- * Middleware для автоматической обработки ошибок RTK Query
- * Показывает toast уведомления при ошибках API запросов
- */
+const isHttpError = (error: unknown): boolean => {
+  if (!error || typeof error !== 'object' || !('status' in error)) {
+    return false
+  }
+
+  const { status } = error as FetchBaseQueryError
+
+  // Сетевые ошибки RTK Query
+  if (
+    status === 'FETCH_ERROR' ||
+    status === 'TIMEOUT_ERROR' ||
+    status === 'PARSING_ERROR'
+  ) {
+    return true
+  }
+
+  // HTTP ошибки (4xx и 5xx)
+  return typeof status === 'number' && status >= 400
+}
+
 export const errorHandlingMiddleware: Middleware =
   (_) => (next) => (action) => {
-    // Проверяем, является ли action отклоненным RTK Query запросом
-    if (isRejectedWithValue(action)) {
-      // Можно добавить логику для игнорирования определенных эндпоинтов
-      const meta = action.meta as unknown
-      const endpoint =
-        meta &&
-        typeof meta === 'object' &&
-        'arg' in meta &&
-        meta.arg &&
-        typeof meta.arg === 'object' &&
-        'endpointName' in meta.arg
-          ? (meta.arg.endpointName as string)
-          : undefined
-
-      // Например, не показываем ошибки для определенных эндпоинтов
-      const ignoredEndpoints = ['getResourceByUrl'] // можно добавить эндпоинты, для которых не нужны уведомления
-
-      if (endpoint && ignoredEndpoints.includes(endpoint)) {
-        return next(action)
-      }
-
-      // Показываем уведомление об ошибке
-      showErrorNotification(action.payload)
+    if (isRejectedWithValue(action) && isHttpError(action.payload)) {
+      showErrorNotification(action.payload as FetchBaseQueryError)
     }
 
     return next(action)

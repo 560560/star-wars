@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import emptyImg from '../../../assets/images/empty_img.png'
 import { ContentListLoader } from '../../common/ContentLoader'
@@ -10,6 +10,7 @@ import {
   useGetResourcesByUrlsQuery,
 } from '@/api/baseApi'
 import { useGetPersonQuery } from '@/api/peopleApi'
+import { TransitionLink } from '@/components/common/TransitionLink'
 import { useViewTransition } from '@/hooks/useViewTransition'
 
 const getPageId = (url: string): number => parseInt(url.replace(/[^\d]/g, ''))
@@ -18,9 +19,11 @@ const ResidentItem = () => {
   const { residentId } = useParams<{ residentId?: string }>()
   const { goBack } = useViewTransition()
 
-  const { data: person, isLoading } = useGetPersonQuery(
-    residentId ? parseInt(residentId) : 0,
-  )
+  const {
+    data: person,
+    isLoading,
+    isError,
+  } = useGetPersonQuery(residentId ? parseInt(residentId) : 0)
 
   const { data: homePlanet, isLoading: isHomePlanetLoading } =
     useGetResourceByUrlQuery(person?.homeworld || '', {
@@ -40,8 +43,12 @@ const ResidentItem = () => {
     goBack()
   }
 
-  if (isLoading || !person) {
+  if (isLoading) {
     return <Preloader />
+  }
+
+  if (isError || !person) {
+    return <ErrorMessage />
   }
 
   return (
@@ -134,12 +141,12 @@ const ResidentItem = () => {
             {isHomePlanetLoading || !homePlanet ? (
               <ContentListLoader />
             ) : (
-              <NavLink
+              <TransitionLink
                 className="link"
                 to={`/planet/${getPageId(homePlanet.url)}`}
               >
                 {'name' in homePlanet ? homePlanet.name : ''}
-              </NavLink>
+              </TransitionLink>
             )}
           </div>
         </div>
@@ -157,12 +164,12 @@ const ResidentItem = () => {
                     key={film.url}
                     className="w-full md:w-4/12 sm:w-6/12 mb-1"
                   >
-                    <NavLink
+                    <TransitionLink
                       className="link"
                       to={`/films/${getPageId(film.url)}`}
                     >
                       {'title' in film ? film.title : ''}
-                    </NavLink>
+                    </TransitionLink>
                   </div>
                 ))}
               </div>

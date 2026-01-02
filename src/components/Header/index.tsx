@@ -1,62 +1,74 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+
+import { TransitionLink } from '@/components/common/TransitionLink'
+
+const activeClass = 'text-sw-cyan'
+const linkClass =
+  'link text-gray-300 hover:text-white text-sm font-medium no-underline'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="bg-gray-800 [view-transition-name:header]">
+    <nav className="sticky top-0 z-50 bg-gray-800/95 backdrop-blur-sm [view-transition-name:header]">
       <div className="mx-auto px-4">
         <div className="flex h-16 gap-x-8">
           <div className="flex items-center">
-            <Link className="mr-5 headerLogo no-underline" to="/">
+            <TransitionLink className="mr-5 headerLogo no-underline" to="/">
               STAR WARS
-            </Link>
+            </TransitionLink>
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-4">
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/"
             >
               Sections
-            </Link>
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            </TransitionLink>
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/films/1"
             >
               Films
-            </Link>
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            </TransitionLink>
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/planets"
             >
               Planets
-            </Link>
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            </TransitionLink>
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/people"
             >
               People
-            </Link>
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            </TransitionLink>
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/species"
             >
               Species
-            </Link>
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            </TransitionLink>
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/vehicles"
             >
               Vehicles
-            </Link>
-            <Link
-              className="link text-gray-300 hover:text-white rounded-md text-sm font-medium no-underline"
+            </TransitionLink>
+            <TransitionLink
+              activeClassName={activeClass}
+              className={linkClass}
               to="/starships"
             >
               Starships
-            </Link>
+            </TransitionLink>
           </div>
 
           <div className="md:hidden flex items-center">
@@ -98,48 +110,55 @@ export const Header = () => {
         id="responsive-navbar-nav"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 text-right">
-          <Link
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/"
           >
             Sections
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/films/1"
           >
             Films
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/planets"
           >
             Planets
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/people"
           >
             People
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/species"
           >
             Species
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/vehicles"
           >
             Vehicles
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
+            activeClassName={activeClass}
             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium no-underline"
             to="/starships"
           >
             Starships
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </nav>

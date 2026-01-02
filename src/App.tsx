@@ -4,7 +4,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 
 import './index.css'
 import { Films } from './components/Films'
-import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
 import Planets from './components/Planets'
@@ -19,19 +18,12 @@ function App() {
   return (
     <div className="appWrapper">
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
           duration: 4000,
           style: {
             background: '#363636',
             color: '#fff',
-          },
-          success: {
-            duration: 3000,
-            iconTheme: {
-              primary: '#4ade80',
-              secondary: '#fff',
-            },
           },
           error: {
             duration: 4000,
@@ -54,7 +46,6 @@ function App() {
         <Route exact component={Species} path="/species" />
         <Route exact component={Vehicles} path="/vehicles" />
       </Switch>
-      <Footer />
     </div>
   )
 }

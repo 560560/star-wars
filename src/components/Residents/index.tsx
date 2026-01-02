@@ -4,12 +4,17 @@ import { Preloader } from '../common/Preloader'
 import ResidentListItem from './ResidentListItem'
 
 import { useGetPeopleQuery } from '@/api/peopleApi'
+import { ErrorMessage } from '@/components/common/ErrorMessage'
 
 const Residents = () => {
-  const { data: people, isLoading } = useGetPeopleQuery()
+  const { data: people, isLoading, isError } = useGetPeopleQuery()
 
-  if (isLoading || !people) {
+  if (isLoading) {
     return <Preloader />
+  }
+
+  if (isError || !people) {
+    return <ErrorMessage />
   }
 
   return (

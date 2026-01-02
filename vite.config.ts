@@ -2,8 +2,8 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import { defineConfig } from 'vite'
 
-export default defineConfig({
-  base: '/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/star-wars/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -27,4 +27,4 @@ export default defineConfig({
     outDir: 'build',
     sourcemap: true,
   },
-})
+}))

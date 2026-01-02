@@ -374,7 +374,7 @@
   /* Base transition animations */
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: 200ms;
+    animation-duration: 400ms;
     animation-timing-function: ease-in-out;
   }
 
@@ -405,9 +405,21 @@
     }
   }
 
-  /* Keep header and footer static during transitions */
-  ::view-transition-old(header),
-  ::view-transition-new(header),
+  /* Keep header completely static during transitions */
+  ::view-transition-group(header) {
+    animation: none;
+  }
+
+  ::view-transition-old(header) {
+    animation: none;
+    opacity: 0;
+  }
+
+  ::view-transition-new(header) {
+    animation: none;
+  }
+
+  /* Keep footer static during transitions */
   ::view-transition-old(footer),
   ::view-transition-new(footer) {
     animation: none;
