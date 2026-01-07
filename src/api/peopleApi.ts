@@ -16,11 +16,13 @@ export const peopleApi = baseApi.injectEndpoints({
         return `/people?${queryParams.toString()}`
       },
       transformResponse: transformListResponse,
+      keepUnusedDataFor: 300,
     }),
 
     // Получить конкретного персонажа по ID
     getPerson: builder.query<IPerson, number>({
       query: (id) => `/people/${id}`,
+      keepUnusedDataFor: 300,
     }),
   }),
 })

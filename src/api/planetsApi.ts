@@ -13,11 +13,13 @@ export const planetsApi = baseApi.injectEndpoints({
         if (params?.search) queryParams.append('search', params.search)
         return `/planets?${queryParams.toString()}`
       },
+      keepUnusedDataFor: 300,
     }),
 
     // Получить конкретную планету по ID
     getPlanet: builder.query<IPlanet, number>({
       query: (id) => `/planets/${id}`,
+      keepUnusedDataFor: 300,
     }),
   }),
 })

@@ -143,7 +143,7 @@ export default defineConfig([
       'prefer-template': 'error',
 
       // Запрет console (кроме warn и error)
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['warn', { allow: ['log', 'warn', 'error'] }],
 
       // Запрет debugger в production
       'no-debugger': 'error',

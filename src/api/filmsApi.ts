@@ -6,11 +6,13 @@ export const filmsApi = baseApi.injectEndpoints({
     // Получить список фильмов
     getFilms: builder.query<PaginatedResponse<IFilm>, void>({
       query: () => '/films',
+      keepUnusedDataFor: 300,
     }),
 
     // Получить конкретный фильм по ID
     getFilm: builder.query<IFilm, number>({
       query: (id) => `/films/${id}`,
+      keepUnusedDataFor: 300,
     }),
   }),
 })

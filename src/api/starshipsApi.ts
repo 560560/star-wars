@@ -14,11 +14,13 @@ export const starshipsApi = baseApi.injectEndpoints({
         if (params?.search) queryParams.append('search', params.search)
         return `/starships?${queryParams.toString()}`
       },
+      keepUnusedDataFor: 300,
     }),
 
     // Получить конкретный звездолет по ID
     getStarship: builder.query<IStarship, number>({
       query: (id) => `/starships/${id}`,
+      keepUnusedDataFor: 300,
     }),
   }),
 })

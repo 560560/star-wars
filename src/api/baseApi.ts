@@ -13,6 +13,7 @@ export const baseApi = createApi({
       query: (url) => {
         return url.replace(BASE_URL, '').replace('https://swapi.info/api', '')
       },
+      keepUnusedDataFor: 300,
     }),
 
     // Batch загрузка ресурсов по массиву URL
@@ -43,6 +44,7 @@ export const baseApi = createApi({
 
         return { data }
       },
+      keepUnusedDataFor: 300,
     }),
   }),
 })

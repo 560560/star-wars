@@ -11,6 +11,30 @@
     />
     <link rel="manifest" href="/manifest.json" />
     <title>STAR WARS</title>
+
+    <!-- GitHub Pages SPA redirect script -->
+    <!-- Восстанавливает URL из параметров, установленных 404.html -->
+    <script>
+      (function() {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        } else {
+          const query = location.search;
+          if (query) {
+            const params = new URLSearchParams(query);
+            const path = params.get('p');
+
+            if (path) {
+              const url = path + (params.get('q') ? '?' + params.get('q') : '') + location.hash;
+              history.replaceState(null, null, url);
+            }
+          }
+        }
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

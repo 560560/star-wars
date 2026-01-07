@@ -14,11 +14,13 @@ export const vehiclesApi = baseApi.injectEndpoints({
         if (params?.search) queryParams.append('search', params.search)
         return `/vehicles?${queryParams.toString()}`
       },
+      keepUnusedDataFor: 300,
     }),
 
     // Получить конкретный транспорт по ID
     getVehicle: builder.query<IVehicle, number>({
       query: (id) => `/vehicles/${id}`,
+      keepUnusedDataFor: 300,
     }),
   }),
 })

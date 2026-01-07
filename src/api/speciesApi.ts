@@ -14,11 +14,13 @@ export const speciesApi = baseApi.injectEndpoints({
         if (params?.search) queryParams.append('search', params.search)
         return `/species?${queryParams.toString()}`
       },
+      keepUnusedDataFor: 300,
     }),
 
     // Получить конкретную расу по ID
     getSpeciesById: builder.query<ISpecies, number>({
       query: (id) => `/species/${id}`,
+      keepUnusedDataFor: 300,
     }),
   }),
 })
